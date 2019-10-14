@@ -1,8 +1,7 @@
 var db = require("../models");
 
 module.exports = function(app) {
-
-// ---------- RECIPES ----------------//
+  // ---------- RECIPES ----------------//
 
   // Get ALL recipes with their Chef and category
   app.get("/api/recipes", function(req, res) {
@@ -32,7 +31,7 @@ module.exports = function(app) {
     });
   });
 
-//-----------CHEFS-----------------//
+  //-----------CHEFS-----------------//
 
   // Get all chefs and their recipes
   app.get("/api/chefs", function(req, res) {
@@ -53,7 +52,7 @@ module.exports = function(app) {
     });
   });
 
-//------- CATEGORIES ------------//
+  //------- CATEGORIES ------------//
   // Get all categories with their recipes
   app.get("/api/categories", function(req, res) {
     db.Category.findAll({
@@ -73,15 +72,14 @@ module.exports = function(app) {
     });
   });
 
-
- //----------CREATE--------------//
+  //----------CREATE--------------//
   // Create new recipe
   app.post("/api/recipes", function(req, res) {
     db.Recipe.create(req.body).then(function(dbRecipe) {
       res.json(dbRecipe);
     });
   });
-  
+
   // Create new chef
   app.post("/api/chefs", function(req, res) {
     db.Chef.create(req.body).then(function(dbChef) {
@@ -89,10 +87,12 @@ module.exports = function(app) {
     });
   });
 
-//------------DELETE--------------//
+  //------------DELETE--------------//
   // Delete a recipe by id
   app.delete("/api/recipes/:id", function(req, res) {
-    db.Recipe.destroy({ where: { id: req.params.id } }).then(function(dbRecipes) {
+    db.Recipe.destroy({ where: { id: req.params.id } }).then(function(
+      dbRecipes
+    ) {
       res.json(dbRecipes);
     });
   });
@@ -103,7 +103,6 @@ module.exports = function(app) {
       res.json(dbChefs);
     });
   });
-  
 };
 
 //-------------------------------------------//
@@ -115,12 +114,12 @@ module.exports = function(app) {
 //   });
 // });
 
-  // //  Get recipes with their category and Chef~~ (find one)
-  // app.get("/api/recipes/:category", function(req, res) {
-  //   db.Recipe.findAll({
-  //     include: [db.Chef, db.Category],
-  //     where: { category: req.params.category }
-  //   }).then(function(dbRecipes) {
-  //     res.json(dbRecipe);
-  //   });
-  // });
+// //  Get recipes with their category and Chef~~ (find one)
+// app.get("/api/recipes/:category", function(req, res) {
+//   db.Recipe.findAll({
+//     include: [db.Chef, db.Category],
+//     where: { category: req.params.category }
+//   }).then(function(dbRecipes) {
+//     res.json(dbRecipe);
+//   });
+// });

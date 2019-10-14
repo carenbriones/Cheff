@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true
       } 
     },
-    picture_url: {
+    pictureURL: {
       type: DataTypes.STRING,
       allowNull: false
     }
@@ -31,7 +31,6 @@ module.exports = function(sequelize, DataTypes) {
 
   return Chef;
 };
-
 
 // Id
 // Name
