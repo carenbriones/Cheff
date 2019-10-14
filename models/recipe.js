@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
   var Recipe = sequelize.define("Recipe", {
-    // Giving the Author model a name of type STRING
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -35,6 +34,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
 
+    // Many-to-many association between Recipe and Category
+    // Creates RecipeCategories table
     Recipe.belongsToMany(models.Category, { through: "RecipeCategories" });
   };
   //project = category // user = recipe

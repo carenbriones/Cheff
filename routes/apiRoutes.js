@@ -1,4 +1,5 @@
 var db = require("../models");
+var passport = require("../config/passport");
 
 module.exports = function(app) {
   // ---------- RECIPES ----------------//
@@ -11,7 +12,7 @@ module.exports = function(app) {
     }
     //??????????
     if (req.query.category_id) {
-      query.CategoryId = req.query.category_id;
+      query.CategoryId = reqß.query.category_id;
     }
     db.Recipe.findAll({
       where: query,
@@ -28,6 +29,19 @@ module.exports = function(app) {
       where: { category: req.params.id }
     }).then(function(dbRecipes) {
       res.json(dbRecipes);
+    });
+  });
+
+  // Get recipes by category
+  app.get("/api/recipes/:category", function(req, res) {
+    db.Recipe.findAll({
+      include: [db.Chef, db.Category],
+      through: {
+        where: { category: req.params.category }
+      }
+    }).then(function(dbRecipes) {
+      res.json(dbRecipes);
+      s;
     });
   });
 
@@ -81,10 +95,32 @@ module.exports = function(app) {
   });
 
   // Create new chef
-  app.post("/api/chefs", function(req, res) {
-    db.Chef.create(req.body).then(function(dbChef) {
-      res.json(dbChef);
-    });
+  // app.post("/api/chefs", function(req, res) {
+  //   db.Chef.create(req.body).then(function(dbChef) {
+  //     res.json(dbChef);
+  //   });
+  // });
+
+  // If User has valid login credentials, send them to members page.
+  // Otherwise, user will be sent an error
+  app.post("/api/login", passport.authenticate("local"), function(req, res) {
+    res.json(req.user);
+  });
+
+  //
+  app.post("/api/signup", function(req, res) {
+    db.User.create({
+      email: req.body.email,
+      password: req.body.password,
+      name: req.body.name,
+      pictureURL: req.body.pictureURL
+    })
+      .then(function() {
+        res.redirect(307, "/api/login");
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
   });
 
   //------------DELETE--------------//
@@ -120,6 +156,6 @@ module.exports = function(app) {
 //     include: [db.Chef, db.Category],
 //     where: { category: req.params.category }
 //   }).then(function(dbRecipes) {
-//     res.json(dbRecipe);
+//     res.json(dbRecipes);
 //   });
 // });

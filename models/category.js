@@ -6,6 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  // Many-to-many association between Recipe and Category
+  // Creates RecipeCategories table
   Category.associate = function(models) {
     Category.belongsToMany(models.Recipe, {
       through: "RecipeCategories"
@@ -14,14 +16,3 @@ module.exports = function(sequelize, DataTypes) {
 
   return Category;
 };
-
-// Recipe.associate = function(models) {
-//     Recipe.belongsTo(models.Chef, {
-//         foreignKey: {
-//             allowNull: false
-//         }
-
-//     }),
-//     Recipe.belongsToMany(models.Category, { through: RecipeCategory });
-
-// }
