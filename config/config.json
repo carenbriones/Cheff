@@ -1,13 +1,8 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
-    "password": "B@sk3tball",
-    "database": "exampledb",
-=======
     "password": "password",
     "database": "cheffs_db",
->>>>>>> 69830094f47d6fc595528e325044ab9e6a8c6da3
     "host": "localhost",
     "dialect": "mysql"
   },
