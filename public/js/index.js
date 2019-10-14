@@ -97,3 +97,55 @@ var handleDeleteBtnClick = function() {
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
+
+// AJAX REQUEST TO THE EDAMAM EPI
+
+// API needs a query search, that won't work with multiple values.
+// Suggestions (pick of the day):
+// To pick ramdomly among chicken, beef, fish, vegan.
+
+// It always displays the same recipe from the same query, we can request more results and pick randomly from the result
+
+$(document).ready(function () {
+
+  var options = ["chicken", "beef", "fish", "vegan"];
+  var query = options[Math.floor(Math.random() * 4)];
+
+  console.log(query);
+  var edamamURL = "https://api.edamam.com/search?q=" + query + "&app_id=" + edamam.id + "&app_key=" + edamam.key + "&from=0&to=3&calories=591-722&health=alcohol-free";
+
+    //Pick of the day request.
+    $.ajax({
+      url: edamamURL,
+      method: "GET"
+
+  }).then(function (response) {
+      var newRecipe = {};
+      console.log("searching for recipes from random ingredient, 0-3, 591-722 calories, alcohol-free");
+      console.log(response);
+
+      var pickRandomResult = Math.floor((Math.random() * response.hits.length));
+      console.log("Picking recipe #" + pickRandomResult);
+
+      //Name
+      newRecipe.name = response.hits[pickRandomResult].recipe.label;
+      newRecipe.categories = "";
+      // Health Labels (Categories)
+      for( var i=0 ; i < response.hits[pickRandomResult].recipe.healthLabels.length ; i++) {
+          newRecipe.categories += response.hits[pickRandomResult].recipe.healthLabels[i] + ",";
+      }
+      newRecipe.ingredients = "";
+      // Ingredients
+      for( var i=0 ; i < response.hits[pickRandomResult].recipe.ingredients.length ; i++) {
+          newRecipe.ingredients += response.hits[pickRandomResult].recipe.ingredients[i].text + ",";
+      }
+
+      // Img URL
+      newRecipe.imgURL = response.hits[pickRandomResult].recipe.image
+
+      // URL
+      newRecipe.url = response.hits[pickRandomResult].recipe.url
+
+      console.log(newRecipe)
+  });
+});
