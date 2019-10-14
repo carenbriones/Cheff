@@ -1,8 +1,8 @@
 -- CREATES DATABASE --
-CREATE DATABASE cheffs_db; 
+CREATE DATABASE exampledb; 
 
 -- CREATES TABLES--
-USE cheffs_db;
+USE exampledb;
 CREATE TABLE Recipes (
 	id INT AUTO_INCREMENT,
     chef_id INT NOT NULL, 
