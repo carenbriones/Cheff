@@ -1,6 +1,6 @@
-console.log('this is loaded');
+console.log("this is loaded");
 
-exports.edamam = {
+module.exports = {
   id: process.env.EDAMAM_ID,
   key: process.env.EDAMAM_KEY
 };
