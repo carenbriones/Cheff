@@ -27,3 +27,13 @@ module.exports = function(app) {
     res.render("404");
   });
 };
+
+// CLICK ON CHEF'S NAME
+//  URL /chef/:id
+  //res.render "profile.handlebars"
+
+// CLICK ON CATEGORIES
+//  URL /categories/:id
+  // res.render all-recipes.handlebars (by category)
+
+// CLICK ON 
