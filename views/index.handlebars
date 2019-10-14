@@ -1,33 +1,193 @@
-<div id="home">
-  <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
-          </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
-      </div>
+<!--#################### WELCOME MESSAGE #################################-->
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4">
+      <h1>Welcome to Cheff</h1>
+    </div>
+
+    <div class="col-12 col-md-4 ">
+      <img src="../public/images/chef-home.png" class="img-fluid mx-auto" alt="Responsive image"
+        style="min-width:200px">
+    </div>
+    <div class="col-12 col-md-4 ">
+      <p id="chef-intro-text">Lörem ipsum dolor sit amet, dedeeshka duu. Leebur deroor iehroom, Börk Börk
+        Börk! Yöva gäta stahrt sömwaer. Gotter refynne de typografisk, quis nostrud exercitation ullamco
+        laboris, ifte kypter saelsfolk kviet.Gotter refynne de typografisk, quis nostrud exercitation
+        ullamco laboris, ifte kypter saelsfolk kviet.
+
+        Ut enim ad minim veniam, letsi ifder svensk og latin makinen dehr graek. Yöva gäta stahrt sömwaer.
+        Ut enim ad minim veniam, letsi ifder svensk og latin makinen dehr graek.</p>
     </div>
   </div>
-</div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+</div>
+<!--#################### END WELCOME MESSAGE #################################-->
+
+<!--##################################################################################-->
+<!--#################### DISPLAY RECIPES BY CATEGORY #################################-->
+<!--##################################################################################-->
+
+<!--####################### MOST RECENT SECTION  #################-->
+<div class="container mb-4">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4 mt-5">
+      <h1>Most Recent Recipes</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!--------- EXAMPLE CARD ------------>
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="card mb-2">
+        <img class="card-img-top" src="https://via.placeholder.com/200" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Declious Recipe 1</h5>
+          <a href="#" class="btn btn-block btn-primary">View Recipe</a>
+        </div>
+      </div>
+    </div>
+
+    <!--------- END EXAMPLE CARD ------------>
+
+    <!-- DYNAMIC CARD-->
+    {{#each All-recipes}}
+     <div class="col-12 col-sm-6 col-md-3">
+      <div class="card mb-2">
+        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+
+    <a href="/all" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+
+  </div>
+</div>
+<!--####################### END MOST RECENT  #################-->
+
+
+
+<!--####################### VEGAN SECTION  #################-->
+<div class="container mb-4">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4 mt-5">
+      <h1>Vegan Recipes</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!-- DYNAMIC CARD-->
+    {{#each Vegan-recipes}}
+     <div class="col-12 col-sm-6 col-md-3">
+      <div class="card mb-2">
+        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+
+    <a href="/vegan" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+
+  </div>
+</div>
+<!--####################### END VEGAN SECTION  #################-->
+
+<!--####################### VEGATARIAN SECTION  #################-->
+<div class="container mb-4">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4 mt-5">
+      <h1>Vegatarian Recipes</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!-- DYNAMIC CARD-->
+    {{#each Vegatarian-recipes}}
+     <div class="col-12 col-sm-6 col-md-3">
+      <div class="card mb-2">
+        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+
+    <a href="/vegatarian" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+
+  </div>
+</div>
+<!--####################### END VEGATARIAN SECTION  #################-->
+
+<!--####################### PESCATARIAN SECTION  #################-->
+<div class="container mb-4">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4 mt-5">
+      <h1>Pescatarian Recipes</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!-- DYNAMIC CARD-->
+    {{#each Pescatarian-recipes}}
+     <div class="col-12 col-sm-6 col-md-3">
+      <div class="card mb-2">
+        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+
+    <a href="/pescatarian" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+
+  </div>
+</div>
+<!--####################### END PESCATARIAN SECTION  #################-->
+
+<!--####################### PALEO SECTION  #################-->
+<div class="container mb-4">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4 mt-5">
+      <h1>Paleo Recipes</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!-- DYNAMIC CARD-->
+    {{#each Paleo-recipes}}
+     <div class="col-12 col-sm-6 col-md-3">
+      <div class="card mb-2">
+        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+
+    <a href="/vegan" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+
+  </div>
+</div>
+<!--####################### END PALEO SECTION  #################-->
