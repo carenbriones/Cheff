@@ -87,22 +87,16 @@ module.exports = function(app) {
     });
   });
 
-  // Create new chef
-  // app.post("/api/chefs", function(req, res) {
-  //   db.Chef.create(req.body).then(function(dbChef) {
-  //     res.json(dbChef);
-  //   });
-  // });
-
   // If User has valid login credentials, send them to members page.
   // Otherwise, user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
+    // Should it be req.chef?
     res.json(req.user);
   });
 
   //
   app.post("/api/signup", function(req, res) {
-    db.User.create({
+    db.Chef.create({
       email: req.body.email,
       password: req.body.password,
       name: req.body.name,

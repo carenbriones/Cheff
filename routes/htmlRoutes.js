@@ -3,23 +3,44 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Recipe.findAll({}).then(function(dbExamples) {
+    db.Recipe.findAll({}).then(function(dbRecipes) {
       res.render("index", {
-        msg: "Welcome!",
-        examples: dbExamples
+        recipes: dbRecipes
       });
     });
   });
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(
-      dbExample
+  // Load single recipe page and pass in an recipe by id
+  app.get("/recipe/:id", function(req, res) {
+    db.Recipe.findOne({ where: { id: req.params.id } }).then(function(
+      dbRecipe
     ) {
-      res.render("example", {
-        example: dbExample
+      res.render("single-recipe", {
+        recipe: dbRecipe
       });
     });
+  });
+
+  app.get("/all-recipes/:categoryId", function(req, res) {
+    db.Recipe.findAll({
+      include: [db.Chef, db.Category],
+      through: {
+        where: { CategoryId: req.params.categoryId }
+      }
+    }).then(function(dbRecipes) {
+      res.render("all-recipes", {
+        recipes: dbRecipes
+      });
+    });
+  });
+
+  // Load login page
+  app.get("/login", function(req, res) {
+    res.render("login");
+  });
+
+  app.get("/signup", function(req, res) {
+    res.render("signup");
   });
 
   // Render 404 page for any unmatched routes
