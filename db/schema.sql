@@ -1,8 +1,8 @@
 -- CREATES DATABASE --
-CREATE DATABASE exampledb; 
+CREATE DATABASE cheffs_db; 
 
 -- CREATES TABLES--
-USE exampledb;
+USE cheffs_db;
 CREATE TABLE Recipes (
 	id INT AUTO_INCREMENT,
     chef_id INT NOT NULL, 
@@ -25,7 +25,7 @@ CREATE TABLE Edamam_recipes (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE Categorys (
+CREATE TABLE Categories (
 	id INT AUTO_INCREMENT,
 	category VARCHAR(40) NOT NULL,
 	recipe_id INT NOT NULL,
