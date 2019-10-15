@@ -1,10 +1,68 @@
 var db = require("../models");
 var passport = require("../config/passport");
+var moment = require("moment");
+var edamam = require("../edamam");
 
 module.exports = function(app) {
   // ---------- RECIPES ----------------//
+  // RETURNS MOST RECENT RECIPES FROM DATABASE //
+  app.get("/edamam/recipes", function(req, res) {
+    //SELECT date(updatedAt) FROM Recipes ORDER BY updatedAt DESC;
+    db.Recipe.findAll({
+      include: [db.Chef, db.Category],
+      order: [["updatedAt", "DESC"]]
+    }).then(function(dbRecipes) {
+      // console.log(dbRecipes[0].name);
+      // var lastUpdated =
+      //   "" +
+      //   (dbRecipes[0].updatedAt.getMonth() + 1) +
+      //   dbRecipes[0].updatedAt.getFullYear();
+      // console.log("Today is " + moment().format("MMDDYYYY"));
+      // console.log("Last updated " + lastUpdated);
+      // if (moment().format("MMYYYY") === lastUpdated) {
+      //display recipes from DB by category
+      res.json(dbRecipes);
+      // } else {
+      //   // if last rquest was made over 1 day ago
+      //   // request data from edamam
+      //   //call edamam function
+      //   edamam.then(function(allRecipes) {
+      //     // add edamam data to db
+      //     // db.Recipe.bulkCreate(allRecipes).then(function(dbRecipe) {
+      //     //   res.json(dbRecipe);
+      //     // });
+      //     //update last request data in db
+      //     res.json(allRecipes);
+    });
+  });
+
+  // -------------------CHECK IF THERE IS DATA FROM EDAMAM ON CHEF TABLE
+  // ---------IF NOT, IT POPULATES OUR DB FROM EDAMAM API
+  app.get("/edamam/chefs", function(req, res) {
+    db.Chef.findAll({
+      where: { name: "Edamam" }
+    })
+      .then(function(dbChefs) {
+        if (dbChefs.length === 0) {
+          console.log("NO DATA!!!");
+          //THIS FUNCTION IS NOT WORKING
+          edamam(function (totalRecipes) {
+            res.json(totalRecipes);
+          });
+        } else {
+          res.json(dbChefs);
+        }
+      }).catch(function(error) {
+        console.error(error);
+      })
+      
+      
+  });
+
+  //-----------------
 
   // Get ALL recipes with their Chef and categories
+
   app.get("/api/recipes", function(req, res) {
     db.Recipe.findAll({
       include: [db.Chef, db.Category]
