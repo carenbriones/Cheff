@@ -136,13 +136,3 @@ module.exports = function(app) {
 //     res.json(dbExamples);
 //   });
 // });
-
-// //  Get recipes with their category and Chef~~ (find one)
-// app.get("/api/recipes/:category", function(req, res) {
-//   db.Recipe.findAll({
-//     include: [db.Chef, db.Category],
-//     where: { category: req.params.category }
-//   }).then(function(dbRecipes) {
-//     res.json(dbRecipes);
-//   });
-// });
