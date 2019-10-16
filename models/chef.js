@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
   // Before a Chef is created, we will automatically hash their password
   Chef.addHook("beforeCreate", function(chef) {
     chef.password = bcrypt.hashSync(
-      user.password,
+      chef.password,
       bcrypt.genSaltSync(10),
       null
     );
