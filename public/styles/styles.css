@@ -2,7 +2,7 @@
   line-height: 2.5;
 }
 
-.jumbotron{
+.jumbotron-fluid{
   height:50vh; 
   background: url(/images/hero-bg.png);
   background-repeat: no-repeat;

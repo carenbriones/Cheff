@@ -1,155 +1,66 @@
- <!--#################### CHEF SECTION #################################-->
+<!--#################### CHEF SECTION #################################-->
 
-    <div class="container mb-4">
-        <div class="row">
+<div class="container mb-4">
+    <div class="row">
 
-            <div class="col-12 col-lg-3 mt-1 mb-3">
-                <div class="card">
-                    <img class="card-img-top" src={{chef.img_url}} alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title" id="chef-name">{{chef.name}}</h4>
-                    </div>
-                    <ul class="list-group list-group-flush" id="chef-attributes">
-                        <li class="list-group-item" id="chef-email">{{chef.email}}</li>
-                        <li class="list-group-item" id="chef-creationDate">{{chef.createdDate}}</li>
-                    </ul>
+        <div class="col-12 col-lg-3 mt-1 mb-3">
+            <div class="card">
+                <img class="card-img-top" src={{chef.img_url}} alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title" id="chef-name">{{chef.name}}</h4>
                 </div>
+                <ul class="list-group list-group-flush" id="chef-attributes">
+                    <li class="list-group-item" id="chef-email">{{chef.email}}</li>
+                    <li class="list-group-item" id="chef-creationDate">{{chef.createdDate}}</li>
+                </ul>
             </div>
+        </div>
 
-            <!--#################### END CHEF SECTION #################################-->
+        <!--#################### END CHEF SECTION #################################-->
 
-            <div class="col-12 order-second col-lg-9">
+        <div class="col-12 order-second col-lg-9">
 
 
-                <div class="card mt-1">
-                    <h5 class="card-header">Most Recent Recipes</h5>
-                    <div class="card-body">
+            <div class="card mt-1">
+                <h5 class="card-header">Most Recent Recipes</h5>
+                <div class="card-body">
 
-                        <div class="row">
+                    <div class="row">
 
-                           
-                           <!--EXAMPLE RECIPE CARD-->
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="card mb-2">
-                                    <img class="card-img-top" src="https://via.placeholder.com/200"
-                                        alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Declious Recipe 1</h5>
-                                        <a href="#" class="btn btn-block btn-primary">View Recipe</a>
-                                    </div>
+
+                        <!--EXAMPLE RECIPE CARD-->
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="card mb-2">
+                                <img class="card-img-top" src="https://via.placeholder.com/200" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Declious Recipe 1</h5>
+                                    <a href="#" class="btn btn-block btn-primary">View Recipe</a>
                                 </div>
                             </div>
-                            <!--END EXAMPLE RECIPE CARD-->
+                        </div>
+                        <!--END EXAMPLE RECIPE CARD-->
 
-                            {{#each recipe}}
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="card mb-2">
-                                    <img class="card-img-top" src={{this.img_url}}
-                                        alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{this.title}}</h5>
-                                        <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
-                                    </div>
+                        {{#each recipe}}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="card mb-2">
+                                <img class="card-img-top" src={{this.img_url}} alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.title}}</h5>
+                                    <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
                                 </div>
                             </div>
-
-                            {{/each}}
-
-
-
                         </div>
 
-                    </div>
-                </div>
-            </div>
+                        {{/each}}
 
-        </div>
-
-        <!-- ADDD RECIPE SECTION-->
-        <div class="row">
-            <div class="col-12 col-lg-9 offset-lg-3 mt-3">
-
-
-                <div class="card mt-1" id="add-recipe-section">
-                    <h5 class="card-header">Add New Recipe</h5>
-                    <div class="card-body">
-
-
-                        <form>
-                            <!-- NAME & DESCRIPTION-->
-                            <div class="form-row">
-
-                                <div class="form-group col-12">
-                                    <label for="recipeName">Recipe Name</label>
-                                    <input type="text" class="form-control" id="recipeName" placeholder="Recipe Name"
-                                        required>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="recipeDescription">Description</label>
-                                    <textarea type="text" class="form-control" id="recipeDescription"
-                                        placeholder="Tell us about your recipe" rows="3" required></textarea>
-                                </div>
-                            </div>
-                            <!-- END NAME & DESCRIPTION-->
-
-                            <!-- CHECK BOX SECTION-->
-                            <label for="recipeDescription">Select Category(ies)</label><br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="veganCheckbox" value="Vegan">
-                                <label class="form-check-label" for="inlineCheckbox1">Vegan</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="vegatarianCheckbox"
-                                    value="Vegetarian">
-                                <label class="form-check-label" for="inlineCheckbox2">Vegetarian</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="pescatarianCheckbox"
-                                    value="Pescatarian">
-                                <label class="form-check-label" for="inlineCheckbox2">Pescatarian</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="paleoCheckbox" value="Paleo">
-                                <label class="form-check-label" for="inlineCheckbox2">Paleo</label>
-                            </div>
-
-                            <!-- END CHECK BOX SECTION-->
-
-                            <div class="form-row mt-3">
-                                <div class="form-group col-md-6" id="list-ingredients">
-                                    <label for="inputIngredients">Ingredients</label>
-                                    <input type="text" class="form-control mb-1" id="ingredient-1">
-                                    <input type="text" class="form-control mb-1" id="ingredient-2">
-                                    <input type="text" class="form-control mb-1" id="ingredient-3">
-                                    <button type="button" class="btn btn-secondary float-right" id="add-ingredient">Add
-                                        Ingredient</button>
-                                </div>
-                                <div class="form-group col-md-6" id="list-instructions">
-                                    <label for="inputIngredients">Instructions</label>
-                                    <input type="text" class="form-control mb-1" id="instruction-1">
-                                    <input type="text" class="form-control mb-1" id="instruction-2">
-                                    <input type="text" class="form-control mb-1" id="instruction-3">
-                                    <button type="button" class="btn btn-secondary float-right" id="add-step">Add
-                                        Step</button>
-
-                                </div>
-                                <div class="form-group col-12" id="list-instructions">
-                                    <label for="recipeImage">Image URL</label>
-                                    <input type="text" class="form-control" id="recipeImg" placeholder="Image URL"
-                                        required>
-
-                                </div>
-
-                            </div>
 
 
                     </div>
-                    <button type="submit" class="btn btn-primary mx-2" id="add-article">Add Article</button>
-                    </form>
-
 
                 </div>
             </div>
         </div>
-        <!-- END ADD RECIPE -->
+
     </div>
+
+</div>
