@@ -61,6 +61,15 @@ module.exports = function(app) {
     });
   });
 
+  app.get("recipes/:recipeId", function(req, res) {
+    db.Recipe.findOne({
+      include: [db.Chef, db.Category],
+      where: { RecipeId: req.params.recipeId }
+    }).then(function(dbRecipe) {
+      res.render("single-recipe", { recipe: dbRecipe });
+    });
+  });
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");
