@@ -4,13 +4,13 @@
         <div class="row">
 
             <div class="col-12 order-first text-left mt-3 mb-2">
-                <h1>{{title}}</h1>
+                <h1>{{recipe.name}}</h1>
                 <!-- CHEF NAME --->
-                <p>Chef: <a href="/{{chef_id}}" id="recipe-chef">{{name}}</a></p>
+                <p>Chef: <a href="/{{recipe.ChefId}}" id="recipe-chef">{{recipe.Chef.name}}</a></p>
                 <!-- RECIPE DESCRIPTION --->
-                <p id="recipe-description">{{description}} </p>
+                <p id="recipe-description">{{recipe.description}} </p>
                 <!-- IMAGE --->
-                <img src="{{img_rul}}" class="img-fluid"
+                <img src="{{recipe.imgURL}}" class="img-fluid"
                     id="recipe-image" alt="Recipe image">
             </div>
 
@@ -21,7 +21,7 @@
                         <p class="card-text">
                             <!-- LIST INGREDIENTS --->
                             <ul id="ingredients-list">
-                                {{#each ingredients}}
+                                {{#each recipe.ingredients}}
                                 <li>{{ingredient}}</li>
                                 {{/each}}
                             </ul>
@@ -39,7 +39,7 @@
                         <p class="card-text">
                             <!-- LIST STEPS --->
                             <ol id="recipe-steps">
-                                {{#each steps}}
+                                {{#each recipe.steps}}
                                 <li>{{step}}</li>
                                 {{/each}}
                             </ol>

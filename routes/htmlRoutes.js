@@ -23,10 +23,12 @@ module.exports = function(app) {
 
   app.get("/all-recipes/:categoryId", function(req, res) {
     db.Recipe.findAll({
-      include: [db.Chef, db.Category],
-      through: {
-        where: { CategoryId: req.params.categoryId }
-      }
+      include: [
+        {
+          model: db.Category,
+          where: { id: req.params.categoryId }
+        }
+      ]
     }).then(function(dbRecipes) {
       res.render("all-recipes", {
         recipes: dbRecipes
@@ -56,6 +58,15 @@ module.exports = function(app) {
         chef: req.user,
         recipes: dbRecipes
       });
+    });
+  });
+
+  app.get("recipes/:recipeId", function(req, res) {
+    db.Recipe.findOne({
+      include: [db.Chef, db.Category],
+      where: { RecipeId: req.params.recipeId }
+    }).then(function(dbRecipe) {
+      res.render("single-recipe", { recipe: dbRecipe });
     });
   });
 
