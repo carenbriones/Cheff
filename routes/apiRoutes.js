@@ -25,12 +25,23 @@ module.exports = function(app) {
 
   // Get recipes by category ID
   app.get("/api/recipes/categories/:categoryId", function(req, res) {
+    // db.Recipe.findAll({
+    //   // Joins tables
+    //   include: [db.Chef, db.Category],
+    //   through: {
+    //     where: { categoryId: req.params.categoryId }
+    //   }
+    // }).then(function(dbRecipes) {
+    //   res.json(dbRecipes);
+    // });
+
     db.Recipe.findAll({
-      // Joins tables
-      include: [db.Chef, db.Category],
-      through: {
-        where: { CategoryId: req.params.categoryId }
-      }
+      include: [
+        {
+          model: db.Category,
+          where: { id: req.params.categoryId }
+        }
+      ]
     }).then(function(dbRecipes) {
       res.json(dbRecipes);
     });
@@ -106,6 +117,7 @@ module.exports = function(app) {
         res.redirect(307, "/api/login");
       })
       .catch(function(err) {
+        console.log(err);
         res.status(401).json(err);
       });
   });
@@ -125,6 +137,34 @@ module.exports = function(app) {
     db.Chef.destroy({ where: { id: req.params.id } }).then(function(dbChefs) {
       res.json(dbChefs);
     });
+  });
+
+  /* CHEFS */
+  // If User has valid login credentials, send them to members page.
+  // Otherwise, user will be sent an error
+  app.post("/api/login", passport.authenticate("local"), function(req, res) {
+    res.json(req.user);
+  });
+
+  // Route for logging user out
+  app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+  });
+
+  // Route for getting some data about our user to be used client side
+  app.get("/api/user_data", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      res.json({
+        email: req.user.email,
+        id: req.user.id
+      });
+    }
   });
 };
 
