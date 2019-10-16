@@ -43,10 +43,10 @@
                         {{#each recipes}}
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="card mb-2">
-                                <img class="card-img-top" src={{this.img_url}} alt="Card image cap">
+                                <img class="card-img-top" src={{this.imgURL}} alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{this.title}}</h5>
-                                    <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+                                    <h5 class="card-title">{{this.name}}</h5>
+                                    <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
                                 </div>
                             </div>
                         </div>

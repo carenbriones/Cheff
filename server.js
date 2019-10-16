@@ -39,6 +39,7 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 var syncOptions = { force: false };
+var categories = ["Vegan", "Vegetarian", "Pescatarian", "Paleo"];
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -48,6 +49,7 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
+  findOrCreateCategories(categories);
   app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
@@ -56,5 +58,16 @@ db.sequelize.sync(syncOptions).then(function() {
     );
   });
 });
+
+// Creates category objects if they do not exist in the database
+function findOrCreateCategories(categories) {
+  for (var i = 0; i < categories.length; i++) {
+    db.Category.findOrCreate({
+      where: {
+        category: categories[i]
+      }
+    });
+  }
+}
 
 module.exports = app;
