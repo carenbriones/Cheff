@@ -17,35 +17,6 @@ module.exports = function(app) {
   });
 
   //-----------------
-  app.get("/edamam/recipeoftheday/categories/:categoryId", function(req, res) {
-    db.RecipeOfTheDay.findAll({
-      where: { categoryId: req.params.categoryId },
-      order: [["createdAt", "DESC"]]
-    })
-      .then(function(dbRecipeOfTheDay) {
-        if (dbRecipeOfTheDay.length === 0) {
-          console.log("NO DATA!!!");
-          //Populate table from database in a random order, add a timestamp
-        } else {
-          //Get thate of the first recipe
-          // console.log(dbRecipes[0].name);
-          var lastUpdated =
-            "" +
-            (dbRecipeOfTheDay[0].createdAt.getMonth() + 1) +
-            dbRecipes[0].updatedAt.getFullYear();
-          if (moment().format("MMYYYY") === lastUpdated) {
-            //display data from this table
-            res.json(dbRecipeOfTheDay);
-          } else {
-            //erase table, and populate it from database in a random order, add a timestamp
-          }
-        }
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
-  });
-
   // Get ALL recipes with their Chef and categories
 
   app.get("/api/recipes", function(req, res) {
@@ -171,7 +142,7 @@ module.exports = function(app) {
   });
 };
 
-//-------------------------------------------//
+//------------I MIGHT NEED THIS LATER-------------------------------//
 
 //    /api/recipes-of-the-day
 // app.get("/api/recipes-of-the-day", function(req, res) {
