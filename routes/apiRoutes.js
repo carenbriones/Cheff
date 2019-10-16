@@ -49,15 +49,6 @@ module.exports = function(app) {
 
   // Get recipes by category ID
   app.get("/api/recipes/categories/:categoryId", function(req, res) {
-    // db.Recipe.findAll({
-    //   // Joins tables
-    //   include: [db.Chef, db.Category],
-    //   through: {
-    //     where: { categoryId: req.params.categoryId }
-    //   }
-    // }).then(function(dbRecipes) {
-    //   res.json(dbRecipes);
-    // });
 
     db.Recipe.findAll({
       include: [
