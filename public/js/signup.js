@@ -23,8 +23,8 @@ $(document).ready(function() {
     // Run signUpChef function if there's an email
     signUpChef(
       chefData.email,
-      chefData.password,
       chefData.name,
+      chefData.password,
       chefData.pictureURL
     );
 
