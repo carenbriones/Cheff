@@ -43,6 +43,10 @@ module.exports = function(app) {
     res.render("signup");
   });
 
+  app.get("/add-recipe", function(req, res) {
+    res.render("add-recipe");
+  });
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");

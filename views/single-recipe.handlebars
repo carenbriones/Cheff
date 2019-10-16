@@ -1,0 +1,54 @@
+<!--#################### RECIPE #################################-->
+
+    <div class="container mb-4">
+        <div class="row">
+
+            <div class="col-12 order-first text-left mt-3 mb-2">
+                <h1>{{title}}</h1>
+                <!-- CHEF NAME --->
+                <p>Chef: <a href="/{{chef_id}}" id="recipe-chef">{{name}}</a></p>
+                <!-- RECIPE DESCRIPTION --->
+                <p id="recipe-description">{{description}} </p>
+                <!-- IMAGE --->
+                <img src="{{img_rul}}" class="img-fluid"
+                    id="recipe-image" alt="Recipe image">
+            </div>
+
+            <div class="col-12 col-md-3">
+                <div class="card mt-1">
+                    <h5 class="card-header">Ingredients</h5>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <!-- LIST INGREDIENTS --->
+                            <ul id="ingredients-list">
+                                {{#each ingredients}}
+                                <li>{{ingredient}}</li>
+                                {{/each}}
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 order-last col-md-9">
+
+
+                <div class="card mt-1">
+                    <h5 class="card-header">Step By Step</h5>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <!-- LIST STEPS --->
+                            <ol id="recipe-steps">
+                                {{#each steps}}
+                                <li>{{step}}</li>
+                                {{/each}}
+                            </ol>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+        <!--#################### END RECIPE #################################-->
