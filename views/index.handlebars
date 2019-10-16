@@ -37,26 +37,14 @@
 
   <div class="row">
 
-    <!--------- EXAMPLE CARD ------------>
-    <div class="col-12 col-sm-6 col-md-3">
-      <div class="card mb-2">
-        <img class="card-img-top" src="https://via.placeholder.com/200" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Declious Recipe 1</h5>
-          <a href="#" class="btn btn-block btn-primary">View Recipe</a>
-        </div>
-      </div>
-    </div>
-
-    <!--------- END EXAMPLE CARD ------------>
 
     <!-- DYNAMIC CARD-->
-    {{#each All-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each recipes}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src="{{this.imgURL}}" alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
+          <h5 class="card-title">{{this.name}}</h5>
           <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
         </div>
       </div>
@@ -83,20 +71,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Vegan-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each vegan}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src="{{this.imgURL}}" alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/1" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
 
   </div>
 </div>
@@ -113,20 +101,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Vegatarian-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each vegetarian}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src={{this.imgURL}} alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/2" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
 
   </div>
 </div>
@@ -143,20 +131,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Pescatarian-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each pescatarian}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src={{this.imgURL}} alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/3" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
 
   </div>
 </div>
@@ -173,20 +161,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Paleo-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each paleo}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src={{this.imgURL}} alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/4" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
 
   </div>
 </div>

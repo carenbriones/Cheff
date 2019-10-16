@@ -31,6 +31,14 @@
   object-fit: cover; 
 }
 
+#all-recipe-img{
+  object-fit:cover;
+  max-width: 500px;
+  max-height:333px;
+  width: auto;
+  height: auto;
+}
+
 /* --------- Login --- */
 .card-signin {
   border: 0;

@@ -3,8 +3,48 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
+    db.Recipe.findAll({
+      include: [db.Chef, db.Category]
+    })
+      .then(function(dbRecipes) {
+        var veganAr = [];
+        var vegetarianAr = [];
+        var pescatarianAr = [];
+        var paleoAr = [];
+
+        for (var i = 0; i < dbRecipes.length; i++) {
+          var categories = dbRecipes[i].get("Categories");
+          for (var j = 0; j < categories.length; j++) {
+            var category = categories[j].get("category");
+            if (category === "Vegan") {
+              veganAr.push(dbRecipes[i]);
+            } else if (category === "Vegetarian") {
+              vegetarianAr.push(dbRecipes[i]);
+            } else if (category === "Pescatarian") {
+              pescatarianAr.push(dbRecipes[i]);
+            } else if (category === "Paleo") {
+              paleoAr.push(dbRecipes[i]);
+            }
+          }
+        }
+        res.render("index", {
+          recipes: dbRecipes,
+          vegan: veganAr,
+          vegetarian: vegetarianAr,
+          pescatarian: pescatarianAr,
+          paleo: paleoAr
+        });
+
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.status(400).send(err.message);
+      });
+  });
+
+  app.get("/all-recipes", function(req, res) {
     db.Recipe.findAll({}).then(function(dbRecipes) {
-      res.render("index", {
+      res.render("all-recipes", {
         recipes: dbRecipes
       });
     });
@@ -23,10 +63,12 @@ module.exports = function(app) {
 
   app.get("/all-recipes/:categoryId", function(req, res) {
     db.Recipe.findAll({
-      include: [db.Chef, db.Category],
-      through: {
-        where: { CategoryId: req.params.categoryId }
-      }
+      include: [
+        {
+          model: db.Category,
+          where: { id: req.params.categoryId }
+        }
+      ]
     }).then(function(dbRecipes) {
       res.render("all-recipes", {
         recipes: dbRecipes

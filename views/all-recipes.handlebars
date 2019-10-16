@@ -6,7 +6,7 @@
 <div class="container mb-4">
     <div class="row justify-content-center">
         <div class="col-12 text-center mb-4 mt-5">
-            <h1>{{category}} Recipes</h1>
+            <h1>All {{recipes.0.Categories.0.category}} Recipes</h1>
         </div>
     </div>
 
@@ -17,7 +17,7 @@
         {{#each recipes}}
         <div class="col-12 col-sm-6 col-md-3">
             <div class="card mb-2">
-                <img class="card-img-top" src="{{this.imgURL}}" alt="Recipe Image">
+                <img class="card-img-top" id="all-recipe-img" src="{{this.imgURL}}" alt="Recipe Image">
                 <div class="card-body">
                     <h5 class="card-title">{{this.name}}</h5>
                     <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
