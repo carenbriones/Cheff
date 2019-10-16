@@ -43,6 +43,22 @@ module.exports = function(app) {
     res.render("signup");
   });
 
+  app.get("/add-recipe", function(req, res) {
+    res.render("add-recipe");
+  });
+
+  app.get("/profile", function(req, res) {
+    db.Recipe.findAll({
+      include: [db.Chef, db.Category],
+      where: { ChefId: req.user.id }
+    }).then(function(dbRecipes) {
+      res.render("profile", {
+        chef: req.user,
+        recipes: dbRecipes
+      });
+    });
+  });
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");

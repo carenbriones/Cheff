@@ -38,8 +38,8 @@ passport.use(
 
 // Sequelize needs to serialize and deserialize user
 // To keep authentication state across HTTP requests
-passport.serializeUser(function(chef, cb) {
-  cb(null, chef);
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
