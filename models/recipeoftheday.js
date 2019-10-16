@@ -24,6 +24,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     imgURL: {
       type: DataTypes.TEXT
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1];
+      }
     }
   });
 
