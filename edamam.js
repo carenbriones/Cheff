@@ -59,7 +59,6 @@ function makeAxiosRequest(counter, query, totalRecipes, callback) {
 
         // URL
         newRecipe.steps = response.data.hits[j].recipe.url;
-        // newRecipe.CategoryId = query[0];
         // newRecipe.ChefId = 4;
         allRecipes.push(newRecipe);
       }

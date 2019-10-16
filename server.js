@@ -2,6 +2,7 @@ require("dotenv").config();
 var express = require("express");
 var exphbs = require("express-handlebars");
 var morgan = require("morgan");
+var edamam = require("./edamam");
 
 var session = require("express-session");
 // Requiring passport as we've configured it
@@ -48,6 +49,8 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
+  createCategories();
+  createEdamamChef();
   app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
@@ -57,6 +60,26 @@ db.sequelize.sync(syncOptions).then(function() {
   });
 });
 
+function createCategories() {
+  db.Category.bulkCreate([
+    {
+      category: "Paleo"
+    },
+    {
+      category: "Vegan"
+    },
+    {
+      category: "Vegetarian"
+    },
+    {
+      category: "Pescatarian"
+    }
+  ]).catch(function(err) {
+    console.log(err);
+    res.status(401).json(err);
+  });
+}
+
 function createEdamamChef() {
   // User
   // .findOrCreate({where: {username: 'sdepold'}, defaults: {job: 'Technical Lead JavaScript'}})
@@ -64,16 +87,71 @@ function createEdamamChef() {
   //   console.log(user.get({
   //     plain: true
   //   }))
-   // console.log(created)
+  // console.log(created)
+
   db.Chef.create({
     name: "Edamam",
     email: "chef@mail.com",
     picture: "picture.jpg",
     password: "password"
-  }).then(function(dbChef) {
-    res.json(dbChef);
-  }).catch(console.log);
+  })
+    .then(function(dbChef) {
+      db.Recipe.findAll({
+        include: [db.Chef, db.Category],
+        where: { ChefId: dbChef.id }
+      }).then(function(dbRecipes) {
+        if (dbRecipes.length === 0) {
+          console.log("NO RECIPES");
+          //edamam(function(totalRecipes) {
+          db.Category.findOne({
+            where: { category: "Paleo" }
+          })
+            .then(function(dbCategory) {
+              var categoryId = dbCategory.id;
+              db.Recipe.bulkCreate([
+                {
+                  name: "RECETA NUEVA",
+                  description: "ESTA ES UNA RECETA FICTICIA",
+                  ingredients: "PAPA, CEBOLLA, SAL, TOMATE",
+                  steps: "REVUELVE TODO Y PONLO EN EL MICRO",
+                  imgURL: "FOTOCHAFISIMA.JPG",
+                  ChefId: dbChef.id
+                },
+                {
+                  name: "DOS",
+                  description: "SEGUNDA RECETA NADA MAS PARA VER QUE ONDA",
+                  ingredients: "AJO PIMIENTA SAL Y COMINOS",
+                  steps: "CORTA EL AJO Y TIRALO A LA BASURA",
+                  imgURL: "OTRAFOTOCHAFA.JPG",
+                  ChefId: dbChef.id
+                }
+              ]).then(function(dbRecipes) {
+                console.log(dbRecipes);
+                for (i = 0; i < dbRecipes.length; i++) {
+                  dbRecipes[i].addCategory(categoryId);
+                }
+              });
+            })
+            .catch(console.log);
+          //});
+        } else {
+          console.log(dbRecipes);
+        }
+      });
+    })
+    .catch(console.log);
 }
-
-createEdamamChef();
+// db.Recipe.create(req.body.recipe).then(function(dbRecipe) {
+//   // Associate Categories to Recipe
+//   for (var i = 0; i < req.body.categories.length; i++) {
+//     db.Category.findOne({
+//       where: {
+//         id: req.body.categories[i]
+//       }
+//     }).then(function(dbCategory) {
+//       dbRecipe.setCategories(dbCategory);
+//     });
+//   }
+//   res.json(dbRecipe);
+// });
 module.exports = app;
