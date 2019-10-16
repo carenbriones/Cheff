@@ -39,7 +39,7 @@ $(document).ready(function() {
     }
   });
 
-  $(document).on("click", "#add-recipe", function(event) {
+  $(document).on("click", "#add-recipe", function() {
     var recipeTitle = $("#recipeName")
       .val()
       .trim();
