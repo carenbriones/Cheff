@@ -23,10 +23,12 @@ module.exports = function(app) {
 
   app.get("/all-recipes/:categoryId", function(req, res) {
     db.Recipe.findAll({
-      include: [db.Chef, db.Category],
-      through: {
-        where: { CategoryId: req.params.categoryId }
-      }
+      include: [
+        {
+          model: db.Category,
+          where: { id: req.params.categoryId }
+        }
+      ]
     }).then(function(dbRecipes) {
       res.render("all-recipes", {
         recipes: dbRecipes
