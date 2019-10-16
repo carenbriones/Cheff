@@ -48,10 +48,10 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function () {
+db.sequelize.sync(syncOptions).then(function() {
   createCategories();
   createEdamamChef();
-  app.listen(PORT, function () {
+  app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
@@ -74,7 +74,7 @@ function createCategories() {
     {
       category: "Pescatarian"
     }
-  ]).catch(function (err) {
+  ]).catch(function(err) {
     console.log(err);
     res.status(401).json(err);
   });
@@ -88,14 +88,14 @@ function createEdamamChef() {
     picture: "picture.jpg",
     password: "password"
   })
-    .then(function (dbChef) {
+    .then(function(dbChef) {
       db.Recipe.findAll({
         include: [db.Chef, db.Category],
         where: { ChefId: dbChef.id }
-      }).then(function (dbRecipes) {
+      }).then(function(dbRecipes) {
         if (dbRecipes.length === 0) {
           console.log("NO RECIPES");
-          edamam(function (totalRecipes) {
+          edamam(function(totalRecipes) {
             var counter = 0;
             var categories = ["Vegan", "Vegetarian", "Pescatarian", "Paleo"];
             addFromEdamam(categories, counter, totalRecipes, dbChef.id);
@@ -111,7 +111,7 @@ function addFromEdamam(categories, counter, totalRecipes, chefId) {
     db.Category.findOne({
       where: { category: categories[counter] }
     })
-      .then(function (dbCategory) {
+      .then(function(dbCategory) {
         var categoryId = dbCategory.id;
         var recipesWithChefId = totalRecipes[counter].map(function(recipe) {
           recipe.ChefId = chefId;

@@ -1,7 +1,5 @@
 var db = require("../models");
 var passport = require("../config/passport");
-var moment = require("moment");
-var edamam = require("../edamam");
 
 module.exports = function(app) {
   // ---------- RECIPES ----------------//
@@ -49,7 +47,6 @@ module.exports = function(app) {
 
   // Get recipes by category ID
   app.get("/api/recipes/categories/:categoryId", function(req, res) {
-
     db.Recipe.findAll({
       include: [
         {

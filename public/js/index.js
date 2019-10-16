@@ -107,7 +107,6 @@ $exampleList.on("click", ".delete", handleDeleteBtnClick);
 // It always displays the same recipe from the same query, we can request more results and pick randomly from the result
 
 // $(document).ready(function() {
- 
 
 //   //Pick of the day request.
 // });
