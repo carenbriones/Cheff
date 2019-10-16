@@ -25,7 +25,7 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-var syncOptions = { force: false };
+var syncOptions = { force: true };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -44,4 +44,23 @@ db.sequelize.sync(syncOptions).then(function() {
   });
 });
 
+function createEdamamChef() {
+  // User
+  // .findOrCreate({where: {username: 'sdepold'}, defaults: {job: 'Technical Lead JavaScript'}})
+  // .spread(function(user, created) {
+  //   console.log(user.get({
+  //     plain: true
+  //   }))
+   // console.log(created)
+  db.Chef.create({
+    name: "Edamam",
+    email: "chef@mail.com",
+    picture: "picture.jpg",
+    password: "password"
+  }).then(function(dbChef) {
+    res.json(dbChef);
+  }).catch(console.log);
+}
+
+createEdamamChef();
 module.exports = app;

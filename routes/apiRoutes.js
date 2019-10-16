@@ -12,54 +12,39 @@ module.exports = function(app) {
       include: [db.Chef, db.Category],
       order: [["updatedAt", "DESC"]]
     }).then(function(dbRecipes) {
-      // console.log(dbRecipes[0].name);
-      // var lastUpdated =
-      //   "" +
-      //   (dbRecipes[0].updatedAt.getMonth() + 1) +
-      //   dbRecipes[0].updatedAt.getFullYear();
-      // console.log("Today is " + moment().format("MMDDYYYY"));
-      // console.log("Last updated " + lastUpdated);
-      // if (moment().format("MMYYYY") === lastUpdated) {
-      //display recipes from DB by category
       res.json(dbRecipes);
-      // } else {
-      //   // if last rquest was made over 1 day ago
-      //   // request data from edamam
-      //   //call edamam function
-      //   edamam.then(function(allRecipes) {
-      //     // add edamam data to db
-      //     // db.Recipe.bulkCreate(allRecipes).then(function(dbRecipe) {
-      //     //   res.json(dbRecipe);
-      //     // });
-      //     //update last request data in db
-      //     res.json(allRecipes);
     });
   });
 
-  // -------------------CHECK IF THERE IS DATA FROM EDAMAM ON CHEF TABLE
-  // ---------IF NOT, IT POPULATES OUR DB FROM EDAMAM API
-  app.get("/edamam/chefs", function(req, res) {
-    db.Chef.findAll({
-      where: { name: "Edamam" }
-    })
-      .then(function(dbChefs) {
-        if (dbChefs.length === 0) {
-          console.log("NO DATA!!!");
-          //THIS FUNCTION IS NOT WORKING
-          edamam(function (totalRecipes) {
-            res.json(totalRecipes);
-          });
-        } else {
-          res.json(dbChefs);
-        }
-      }).catch(function(error) {
-        console.error(error);
-      })
-      
-      
-  });
-
   //-----------------
+  app.get("/edamam/recipeoftheday/categories/:categoryId", function(req, res) {
+    db.RecipeOfTheDay.findAll({
+      where: { categoryId: req.params.categoryId },
+      order: [["createdAt", "DESC"]]
+    })
+      .then(function(dbRecipeOfTheDay) {
+        if (dbRecipeOfTheDay.length === 0) {
+          console.log("NO DATA!!!");
+          //Populate table from database in a random order, add a timestamp
+        } else {
+          //Get thate of the first recipe
+          // console.log(dbRecipes[0].name);
+          var lastUpdated =
+            "" +
+            (dbRecipeOfTheDay[0].createdAt.getMonth() + 1) +
+            dbRecipes[0].updatedAt.getFullYear();
+          if (moment().format("MMYYYY") === lastUpdated) {
+            //display data from this table
+            res.json(dbRecipeOfTheDay);
+          } else {
+            //erase table, and populate it from database in a random order, add a timestamp
+          }
+        }
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  });
 
   // Get ALL recipes with their Chef and categories
 

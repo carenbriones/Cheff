@@ -7,7 +7,7 @@ var axios = require("axios");
 module.exports = function(callback) {
   console.log("This function is been called");
   var counter = 0;
-  var query = ["paleo", "vegan", "fish", "vegetarian"];
+  var query = ["vegan", "vegetarian", "fish", "paleo"];
   var totalRecipes = [];
   return makeAxiosRequest(counter, query, totalRecipes, callback);
 };
@@ -29,18 +29,20 @@ function makeAxiosRequest(counter, query, totalRecipes, callback) {
       //console.log(response.data.hits);
 
       for (var j = 0; j < response.data.hits.length; j++) {
+        var newRecipe = {};
         //Name
         newRecipe.name = response.data.hits[j].recipe.label;
-        newRecipe.categories = "";
+        newRecipe.description = "";
         // Health Labels (Categories)
         for (
           var i = 0;
           i < response.data.hits[j].recipe.healthLabels.length;
           i++
         ) {
-          newRecipe.categories +=
-            response.data.hits[j].recipe.healthLabels[i] + ",";
+          newRecipe.description +=
+            response.data.hits[j].recipe.healthLabels[i] + ", ";
         }
+        newRecipe.description += "recipe.";
         newRecipe.ingredients = "";
         // Ingredients
         for (
@@ -56,7 +58,9 @@ function makeAxiosRequest(counter, query, totalRecipes, callback) {
         newRecipe.imgURL = response.data.hits[j].recipe.image;
 
         // URL
-        newRecipe.url = response.data.hits[j].recipe.url;
+        newRecipe.steps = response.data.hits[j].recipe.url;
+        // newRecipe.CategoryId = query[0];
+        // newRecipe.ChefId = 4;
         allRecipes.push(newRecipe);
       }
       //displayInThePage(newRecipe);
@@ -66,7 +70,7 @@ function makeAxiosRequest(counter, query, totalRecipes, callback) {
       makeAxiosRequest(counter, query, totalRecipes, callback);
     });
   } else {
-    console.log(totalRecipes);
+    //console.log(totalRecipes);
     callback(totalRecipes);
   }
 }
