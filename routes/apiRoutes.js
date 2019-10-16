@@ -23,6 +23,16 @@ module.exports = function(app) {
     });
   });
 
+  // Get recipes by chef id
+  app.get("/api/recipes/chefs/:id", function(req, res) {
+    db.Recipe.findAll({
+      include: [db.Chef, db.Category],
+      where: { ChefId: req.params.id }
+    }).then(function(dbRecipes) {
+      res.json(dbRecipes);
+    });
+  });
+
   // Get recipes by category ID
   app.get("/api/recipes/categories/:categoryId", function(req, res) {
     // db.Recipe.findAll({
@@ -101,7 +111,6 @@ module.exports = function(app) {
   // If User has valid login credentials, send them to members page.
   // Otherwise, user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
-    // Should it be req.chef?
     res.json(req.user);
   });
 
@@ -161,6 +170,8 @@ module.exports = function(app) {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
+        pictureURL: req.user.pictureURL,
+        name: req.user.name,
         email: req.user.email,
         id: req.user.id
       });
