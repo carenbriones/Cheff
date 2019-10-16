@@ -63,9 +63,6 @@ db.sequelize.sync(syncOptions).then(function() {
 function createCategories() {
   db.Category.bulkCreate([
     {
-      category: "Paleo"
-    },
-    {
       category: "Vegan"
     },
     {
@@ -73,6 +70,9 @@ function createCategories() {
     },
     {
       category: "Pescatarian"
+    },
+    {
+      category: "Paleo"
     }
   ]).catch(function(err) {
     console.log(err);
@@ -112,6 +112,7 @@ function addFromEdamam(categories, counter, totalRecipes, chefId) {
       where: { category: categories[counter] }
     })
       .then(function(dbCategory) {
+        console.log("FOUND! Category " + dbCategory.category + "Id " + dbCategory.id)
         var categoryId = dbCategory.id;
         var recipesWithChefId = totalRecipes[counter].map(function(recipe) {
           recipe.ChefId = chefId;
@@ -120,12 +121,14 @@ function addFromEdamam(categories, counter, totalRecipes, chefId) {
         db.Recipe.bulkCreate(recipesWithChefId).then(function(dbRecipes) {
           for (i = 0; i < dbRecipes.length; i++) {
             dbRecipes[i].addCategory(categoryId);
+            dbRecipes[i].addCategory("Recipe of the Day");
           }
+          counter++;
+          addFromEdamam(categories, counter, totalRecipes, chefId);
         });
       })
       .catch(console.log);
-    counter++;
-    addFromEdamam(categories, counter, totalRecipes, chefId);
+    
   } else {
     //?????????????
   }
