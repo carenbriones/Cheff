@@ -29,11 +29,11 @@ module.exports = function(app) {
           }
         }
         res.render("index", {
-          recipes: dbRecipes,
-          vegan: veganAr,
-          vegetarian: vegetarianAr,
-          pescatarian: pescatarianAr,
-          paleo: paleoAr
+          recipes: dbRecipes.slice(-4),
+          vegan: veganAr.slice(-4),
+          vegetarian: vegetarianAr.slice(-4),
+          pescatarian: pescatarianAr.slice(-4),
+          paleo: paleoAr.slice(-4)
         });
       })
       .catch(function(err) {
