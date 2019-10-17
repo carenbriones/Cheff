@@ -1,8 +1,12 @@
+.navbar{
+  border-bottom: 1px solid #d3d3d3 ;
+}
+
 .list-group-item {
   line-height: 2.5;
 }
 
-.jumbotron-fluid{
+.hero-image{
   height:50vh; 
   background: url(/images/hero-bg.png);
   background-repeat: no-repeat;
@@ -10,8 +14,20 @@
   background-size: cover;
 }
 
+.recipe-header{
+  height:50vh; 
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
 #hero-title{
   font-size: calc(5vw + 3.5vh);
+  text-shadow: 2px 2px 4px #000000;
+}
+
+#hero-recipe-title{
+  font-size: calc(4vw + 2.5vh);
   text-shadow: 2px 2px 4px #000000;
 }
 

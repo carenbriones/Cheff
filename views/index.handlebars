@@ -1,8 +1,18 @@
+<!--#################### HERO / JUMBOTRON #################################-->
+  <div class="jumbotron jumbotron-fluid d-flex align-items-center hero-image">
+    <div class="container text-center text-white ">
+      <h1 id="hero-title">WELCOME</h1>
+      <p id="hero-subtitle">Cheff is your recipe inspiration from other Chefs around the world!</p>
+    </div>
+  </div>
+
+  <!--#################### END HERO / JUMBOTRON #################################-->
+
 <!--#################### WELCOME MESSAGE #################################-->
 <div class="container mb-5">
   <div class="row justify-content-center">
     <div class="col-12 text-center mb-4">
-      <h1>Welcome to Cheff</h1>
+      <h1>Where Chefs Share</h1>
     </div>
 
     <div class="col-12 col-md-4 ">
@@ -45,7 +55,7 @@
         <img class="card-img-top" id="all-recipe-img" src="{{this.imgURL}}" alt="Recipe Image">
         <div class="card-body">
           <h5 class="card-title">{{this.name}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
         </div>
       </div>
     </div>

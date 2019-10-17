@@ -1,4 +1,5 @@
 var db = require("../models");
+var moment = require("moment");
 
 module.exports = function(app) {
   // Load index page
@@ -34,7 +35,6 @@ module.exports = function(app) {
           pescatarian: pescatarianAr,
           paleo: paleoAr
         });
-
       })
       .catch(function(err) {
         console.log(err);
@@ -55,9 +55,20 @@ module.exports = function(app) {
     db.Recipe.findOne({ where: { id: req.params.id } }).then(function(
       dbRecipe
     ) {
+      var ingredientsRaw = dbRecipe.ingredients;
+      var ingredientsArr = ingredientsRaw.split("&|");
+
+      var stepsRaw = dbRecipe.steps;
+      var stepsArr = stepsRaw.split("&|");
+      var dateAdded = moment(dbRecipe.CreatedAt).format("LL");
+
       res.render("single-recipe", {
-        recipe: dbRecipe
+        recipe: dbRecipe,
+        ingredients: ingredientsArr,
+        steps: stepsArr,
+        date: dateAdded
       });
+      console.log(dbRecipe);
     });
   });
 
@@ -101,12 +112,32 @@ module.exports = function(app) {
     });
   });
 
-  app.get("recipes/:recipeId", function(req, res) {
+  // --------------------------------------------
+  //-- DO WE NEED THIS?? Isn it duplicate of line 54?--
+  app.get("/recipes/:recipeId", function(req, res) {
     db.Recipe.findOne({
       include: [db.Chef, db.Category],
       where: { RecipeId: req.params.recipeId }
     }).then(function(dbRecipe) {
       res.render("single-recipe", { recipe: dbRecipe });
+    });
+  });
+  // --------------------------------------------
+  // --------------------------------------------
+
+  app.get("/profile/:chefId", function(req, res) {
+    db.Chef.findAll({
+      include: db.Recipe,
+      where: { id: req.params.chefId }
+    }).then(function(dbChef) {
+      var joinDate = moment(dbChef[0].createdAt).format("LL")
+      var chefRecipes = dbChef[0].Recipes;
+      console.log(dbChef[0].Recipes)
+      res.render("profile", { 
+        chef: dbChef,
+        date: joinDate,
+        recipe: chefRecipes
+      });
     });
   });
 
