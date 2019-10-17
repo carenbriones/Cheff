@@ -21,59 +21,8 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/edamam/ROTD", function(req, res) {
-    var arr = [];
-    db.Recipe.findAll({
-      include: [
-        {
-          model: db.Category,
-          where: { id: 1 }
-        }
-      ]
-    }).then(function(dbRecipes) {
-      arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
-      db.Recipe.findAll({
-        include: [
-          {
-            model: db.Category,
-            where: { id: 2 }
-          }
-        ]
-      }).then(function(dbRecipes) {
-        arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
-        db.Recipe.findAll({
-          include: [
-            {
-              model: db.Category,
-              where: { id: 3 }
-            }
-          ]
-        }).then(function(dbRecipes) {
-          arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
-          db.Recipe.findAll({
-            include: [
-              {
-                model: db.Category,
-                where: { id: 3 }
-              }
-            ]
-          }).then(function(dbRecipes) {
-            arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
-
-            res.json(arr);
-          });
-        });
-      });
-    });
-  });
-
-  // models.foo.find({
-  //   order: [
-  //     Sequelize.fn( 'RAND' ),
-  //   ]
+  // app.get("/edamam/ROTD", function(req, res) {
   // });
-  //-----------------
-  // Get ALL recipes with their Chef and categories
 
   app.get("/api/recipes", function(req, res) {
     db.Recipe.findAll({
@@ -256,12 +205,3 @@ module.exports = function(app) {
     }
   });
 };
-
-//------------I MIGHT NEED THIS LATER-------------------------------//
-
-//    /api/recipes-of-the-day
-// app.get("/api/recipes-of-the-day", function(req, res) {
-//   db.Example.findAll({}).then(function(dbExamples) {
-//     res.json(dbExamples);
-//   });
-// });

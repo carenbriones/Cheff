@@ -1,9 +1,5 @@
 var axios = require("axios");
 
-// var promise1 = new Promise(function(resolve, reject) {
-//   resolve('Success!');
-// });
-
 module.exports = function(callback) {
   console.log("This function is been called");
   var counter = 0;
