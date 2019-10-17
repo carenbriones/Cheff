@@ -4,7 +4,7 @@
   <div class="jumbotron jumbotron-fluid d-flex align-items-center hero-image">
     <div class="container text-center text-white ">
       <h1 id="hero-title"><i class="fas fa-utensils"></i></h1>
-      <p id="hero-subtitle">{{chef.0.name}}</p>
+      <p id="hero-subtitle">{{chef.name}}</p>
     </div>
   </div>
 
@@ -15,12 +15,12 @@
 
         <div class="col-12 col-lg-3 mt-1 mb-3">
             <div class="card">
-                <img class="card-img-top" src="{{chef.0.pictureURL}}" alt="Chef Image">
+                <img class="card-img-top" src="{{chef.pictureURL}}" alt="Chef Image">
                 <div class="card-body">
-                    <h4 class="card-title" id="chef-name">{{chef.0.name}}</h4>
+                    <h4 class="card-title" id="chef-name">{{chef.name}}</h4>
                 </div>
                 <ul class="list-group list-group-flush" id="chef-attributes">
-                    <li class="list-group-item" id="chef-email"><i class="far fa-envelope"></i> {{chef.0.email}}</li>
+                    <li class="list-group-item" id="chef-email"><i class="far fa-envelope"></i> {{chef.email}}</li>
                     <li class="list-group-item" id="chef-creationDate"><i class="fas fa-user-plus"></i> {{date}}</li>
                     <li class="list-group-item"><a class="btn btn-secondary btn-block" id="add-recipe-button" href="/add-recipe/" role="button">Add Recipe</a></li>
                 </ul>
