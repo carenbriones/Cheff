@@ -99,7 +99,7 @@ $(document).ready(function() {
             .trim()
         );
       }
-      instructions = listOfInstructions.join("|&|");
+      instructions = listOfInstructions.join("&|");
     }
 
     function getCategories() {
