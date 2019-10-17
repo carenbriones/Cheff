@@ -130,10 +130,10 @@ module.exports = function(app) {
       include: db.Recipe,
       where: { id: req.params.chefId }
     }).then(function(dbChef) {
-      var joinDate = moment(dbChef[0].createdAt).format("LL")
+      var joinDate = moment(dbChef[0].createdAt).format("LL");
       var chefRecipes = dbChef[0].Recipes;
-      console.log(dbChef[0].Recipes)
-      res.render("profile", { 
+      console.log(dbChef[0].Recipes);
+      res.render("profile", {
         chef: dbChef,
         date: joinDate,
         recipe: chefRecipes
