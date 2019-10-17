@@ -135,7 +135,7 @@ module.exports = function(app) {
     }).then(function(dbChef) {
       var joinDate = moment(dbChef.createdAt).format("LL");
       var chefRecipes = dbChef.Recipes;
-      
+
       res.render("profile", {
         chef: dbChef,
         date: joinDate,

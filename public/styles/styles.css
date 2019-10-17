@@ -12,6 +12,10 @@ body{
 .navbar{
   border-bottom: 1px solid #d3d3d3 ;
 }
+.nav-btn{
+  margin-right: 6px;
+    margin-top: 3px;
+}
 
 .list-group-item {
   line-height: 2.5;
@@ -23,6 +27,11 @@ body{
   border-color: #ce782c;
 }
 
+#welcome-message{
+  font-size: 1rem;
+  margin-top:7px;
+  margin-left:10px;
+}
 #view-recipe-button{
   color: white;
   background: #932c22;
