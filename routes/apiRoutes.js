@@ -67,14 +67,7 @@ module.exports = function(app) {
     });
   });
 
-  // models.foo.find({
-  //   order: [
-  //     Sequelize.fn( 'RAND' ),
-  //   ]
-  // });
-  //-----------------
   // Get ALL recipes with their Chef and categories
-
   app.get("/api/recipes", function(req, res) {
     db.Recipe.findAll({
       include: [db.Chef, db.Category]
@@ -136,6 +129,23 @@ module.exports = function(app) {
     }).then(function(dbChef) {
       res.json(dbChef);
     });
+  });
+
+  // Gets data about our current user to be used client side
+  app.get("/api/user_data", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      res.json({
+        pictureURL: req.user.pictureURL,
+        name: req.user.name,
+        email: req.user.email,
+        id: req.user.id
+      });
+    }
   });
 
   //------- CATEGORIES ------------//
@@ -237,23 +247,6 @@ module.exports = function(app) {
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
-  });
-
-  // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", function(req, res) {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        pictureURL: req.user.pictureURL,
-        name: req.user.name,
-        email: req.user.email,
-        id: req.user.id
-      });
-    }
   });
 };
 

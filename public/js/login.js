@@ -3,6 +3,7 @@ $(document).ready(function() {
   var emailInput = $("input#inputEmail");
   var passwordInput = $("input#inputPassword");
 
+  // Submits log in form if both email and password are entered
   loginForm.on("submit", function(event) {
     event.preventDefault();
     var userData = {
@@ -20,6 +21,7 @@ $(document).ready(function() {
     passwordInput.val("");
   });
 
+  // Logs user in to site
   function loginUser(email, password) {
     $.post("/api/login", {
       email: email,

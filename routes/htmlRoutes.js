@@ -51,6 +51,22 @@ module.exports = function(app) {
     });
   });
 
+  // Displays all recipes of a specified category
+  app.get("/all-recipes/:categoryId", function(req, res) {
+    db.Recipe.findAll({
+      include: [
+        {
+          model: db.Category,
+          where: { id: req.params.categoryId }
+        }
+      ]
+    }).then(function(dbRecipes) {
+      res.render("all-recipes", {
+        recipes: dbRecipes
+      });
+    });
+  });
+
   // Load single recipe page and pass in an recipe by id
   app.get("/recipe/:id", function(req, res) {
     db.Recipe.findOne({ where: { id: req.params.id } }).then(function(
@@ -70,22 +86,6 @@ module.exports = function(app) {
         date: dateAdded
       });
       console.log(dbRecipe);
-    });
-  });
-
-  // Displays all recipes of a specified category
-  app.get("/all-recipes/:categoryId", function(req, res) {
-    db.Recipe.findAll({
-      include: [
-        {
-          model: db.Category,
-          where: { id: req.params.categoryId }
-        }
-      ]
-    }).then(function(dbRecipes) {
-      res.render("all-recipes", {
-        recipes: dbRecipes
-      });
     });
   });
 
@@ -142,24 +142,6 @@ module.exports = function(app) {
       });
     });
   });
-  // --------------------------------------------
-  // --------------------------------------------
-
-  // app.get("/profile/:chefId", function(req, res) {
-  //   db.Chef.findAll({
-  //     include: db.Recipe,
-  //     where: { id: req.params.chefId }
-  //   }).then(function(dbChef) {
-  //     var joinDate = moment(dbChef[0].createdAt).format("LL");
-  //     var chefRecipes = dbChef[0].Recipes;
-  //     console.log(dbChef[0].Recipes);
-  //     res.render("profile", {
-  //       chef: dbChef,
-  //       date: joinDate,
-  //       recipe: chefRecipes
-  //     });
-  //   });
-  // });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {

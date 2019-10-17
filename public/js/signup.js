@@ -6,6 +6,7 @@ $(document).ready(function() {
   var passwordInput = $("input#inputPassword");
   var pictureURLInput = $("input#imgURL");
 
+  // Submits form to create a Chef
   signUpForm.on("submit", function(event) {
     event.preventDefault();
 
@@ -35,6 +36,7 @@ $(document).ready(function() {
     passwordInput.val("");
   });
 
+  // Creates a Chef in the database
   function signUpChef(email, name, password, pictureURL) {
     $.post("/api/signup", {
       email: email,
