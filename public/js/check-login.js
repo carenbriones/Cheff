@@ -23,9 +23,9 @@ $(document).ready(function() {
       );
       var signOutButton = $(
         "<a href='/logout' id='home-login-button' role='button' class='btn btn-outline-secondary btn-block '><i class='far fa-times-circle'></i></i> Sign Out</a>"
-      );;
+      );
 
-      var welcomeMsg = " What's Cookin' " + data.name +"!"; 
+      var welcomeMsg = " What's Cookin' " + data.name + "!";
       $("#login-account-nav").empty();
       $("#login-account-nav").append(accountButton);
       $("#log-out-holder").empty();
