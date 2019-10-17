@@ -257,14 +257,6 @@ module.exports = function(app) {
   });
 };
 
-function populateRecipeOfTheDay() {
-  db.RecipeCategories.findAll({
-    where: { CategoryId: 1 },
-    order: [["RecipeId", "RAND"]]
-  }).then(function(randomOne) {
-    return randomOne;
-  });
-}
 //------------I MIGHT NEED THIS LATER-------------------------------//
 
 //    /api/recipes-of-the-day
