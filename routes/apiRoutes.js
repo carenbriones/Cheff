@@ -3,8 +3,78 @@ var passport = require("../config/passport");
 
 module.exports = function(app) {
   // ---------- RECIPES ----------------//
+  // RETURNS MOST RECENT RECIPES FROM DATABASE //
+  app.get("/edamam/check-ROTD", function(req, res) {
+    db.RecipeOfTheDays.findAll({
+      include: [db.Chef, db.Category],
+      order: [["createdAt", "DESC"]]
+    }).then(function(dbRecipesOfTheDay) {
+      if (dbRecipesOfTheDay.length !== 0) {
+        //check the date of the most recently created one
+        //if it was today, skip and send all in table
+        res.json(dbRecipesOfTheDay);
+        //if not today, populateRecipeOfTheDay();
+      } else {
+        //populateRecipeOfTheDay();
+        res.json(dbRecipesOfTheDay);
+      }
+    });
+  });
 
+  app.get("/edamam/ROTD", function(req, res) {
+    var arr = [];
+    db.Recipe.findAll({
+      include: [
+        {
+          model: db.Category,
+          where: { id: 1 }
+        }
+      ]
+    }).then(function(dbRecipes) {
+      arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
+      db.Recipe.findAll({
+        include: [
+          {
+            model: db.Category,
+            where: { id: 2 }
+          }
+        ]
+      }).then(function(dbRecipes) {
+        arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
+        db.Recipe.findAll({
+          include: [
+            {
+              model: db.Category,
+              where: { id: 3 }
+            }
+          ]
+        }).then(function(dbRecipes) {
+          arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
+          db.Recipe.findAll({
+            include: [
+              {
+                model: db.Category,
+                where: { id: 3 }
+              }
+            ]
+          }).then(function(dbRecipes) {
+            arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
+
+            res.json(arr);
+          });
+        });
+      });
+    });
+  });
+
+  // models.foo.find({
+  //   order: [
+  //     Sequelize.fn( 'RAND' ),
+  //   ]
+  // });
+  //-----------------
   // Get ALL recipes with their Chef and categories
+
   app.get("/api/recipes", function(req, res) {
     db.Recipe.findAll({
       include: [db.Chef, db.Category]
@@ -187,7 +257,7 @@ module.exports = function(app) {
   });
 };
 
-//-------------------------------------------//
+//------------I MIGHT NEED THIS LATER-------------------------------//
 
 //    /api/recipes-of-the-day
 // app.get("/api/recipes-of-the-day", function(req, res) {
