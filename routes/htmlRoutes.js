@@ -42,6 +42,7 @@ module.exports = function(app) {
       });
   });
 
+  // Displays all recipes
   app.get("/all-recipes", function(req, res) {
     db.Recipe.findAll({}).then(function(dbRecipes) {
       res.render("all-recipes", {
@@ -72,6 +73,7 @@ module.exports = function(app) {
     });
   });
 
+  // Displays all recipes of a specified category
   app.get("/all-recipes/:categoryId", function(req, res) {
     db.Recipe.findAll({
       include: [
@@ -92,34 +94,52 @@ module.exports = function(app) {
     res.render("login");
   });
 
+  // Loads sign up page
   app.get("/signup", function(req, res) {
     res.render("signup");
   });
 
+  // Loads add-recipe page
   app.get("/add-recipe", function(req, res) {
     res.render("add-recipe");
   });
 
+  // Gets profile of current user
   app.get("/profile", function(req, res) {
-    db.Recipe.findAll({
-      include: [db.Chef, db.Category],
-      where: { ChefId: req.user.id }
-    }).then(function(dbRecipes) {
-      res.render("profile", {
-        chef: req.user,
-        recipes: dbRecipes
+    // If user is logged in, display their profile
+    if (req.user) {
+      db.Chef.findOne({
+        include: db.Recipe,
+        where: { id: req.user.id }
+      }).then(function(dbChef) {
+        // If user is logged in, display user's profile page
+        var joinDate = moment(dbChef.createdAt).format("LL");
+        var chefRecipes = dbChef.Recipes;
+        res.render("profile", {
+          chef: dbChef,
+          date: joinDate,
+          recipe: chefRecipes
+        });
       });
-    });
+    } else {
+      // User is not logged in; send them to login page
+      res.render("login");
+    }
   });
 
-  // --------------------------------------------
-  //-- DO WE NEED THIS?? Isn it duplicate of line 54?--
-  app.get("/recipes/:recipeId", function(req, res) {
-    db.Recipe.findOne({
-      include: [db.Chef, db.Category],
-      where: { RecipeId: req.params.recipeId }
-    }).then(function(dbRecipe) {
-      res.render("single-recipe", { recipe: dbRecipe });
+  // Gets profile of chef by chefId
+  app.get("/profile/:chefId", function(req, res) {
+    db.Chef.findOne({
+      include: db.Recipe,
+      where: { id: req.params.chefId }
+    }).then(function(dbChef) {
+      var joinDate = moment(dbChef.createdAt).format("LL");
+      var chefRecipes = dbChef.Recipes;
+      res.render("profile", {
+        chef: dbChef,
+        date: joinDate,
+        recipe: chefRecipes
+      });
     });
   });
   // --------------------------------------------
@@ -146,13 +166,3 @@ module.exports = function(app) {
     res.render("404");
   });
 };
-
-// CLICK ON CHEF'S NAME
-//  URL /chef/:id
-//res.render "profile.handlebars"
-
-// CLICK ON CATEGORIES
-//  URL /categories/:id
-// res.render all-recipes.handlebars (by category)
-
-// CLICK ON
