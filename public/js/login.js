@@ -26,7 +26,10 @@ $(document).ready(function() {
       password: password
     })
       .then(function() {
-        window.location.replace("/profile");
+        $.get("/api/user_data").then(function() {
+          // chefId = data.id;
+          window.location.replace("/profile");
+        });
       })
       .catch(function(err) {
         console.log(err);

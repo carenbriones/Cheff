@@ -79,11 +79,11 @@ module.exports = function(app) {
 
   // Get a Chef by their id
   app.get("/api/chefs/:id", function(req, res) {
-    db.Chef.findAll({
+    db.Chef.findOne({
       include: db.Recipe,
       where: { id: req.params.id }
-    }).then(function(dbChefs) {
-      res.json(dbChefs);
+    }).then(function(dbChef) {
+      res.json(dbChef);
     });
   });
 

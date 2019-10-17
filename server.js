@@ -96,7 +96,7 @@ function createEdamamChef() {
   db.Chef.create({
     name: "Edamam",
     email: "chef@mail.com",
-    picture: "picture.jpg",
+    pictureURL: "picture.jpg",
     password: "password"
   })
     .then(function(dbChef) {
