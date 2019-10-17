@@ -33,6 +33,22 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-
   return RecipeOfTheDay;
+  //One to one association between recipeoftheday and Category
+  //One to one association between ROTD and Chef
+  // RecipeOfTheDay.associate = function(models) {
+  //   RecipeOfTheDay.belongsTo(models.Chef, {
+  //     foreignKey: {
+  //       allowNull: false
+  //     }
+  //   });
+
+  //   RecipeOfTheDay.belongsTo(models.Category, {
+  //     foreignKey: {
+  //       allowNull: false
+  //     }
+  //   });
+
+  //   return RecipeOfTheDay;
+  // };
 };

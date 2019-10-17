@@ -135,6 +135,4 @@ function addFromEdamam(categories, counter, totalRecipes, chefId) {
       .catch(console.log);
   }
 }
-
-
 module.exports = app;

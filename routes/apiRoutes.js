@@ -59,7 +59,7 @@ module.exports = function(app) {
             ]
           }).then(function(dbRecipes) {
             arr.push(dbRecipes[Math.floor(Math.random() * dbRecipes.length)]);
-      
+
             res.json(arr);
           });
         });
