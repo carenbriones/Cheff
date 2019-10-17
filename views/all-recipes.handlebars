@@ -1,4 +1,16 @@
-<!--##################################################################################-->
+
+
+<!--#################### HERO / JUMBOTRON #################################-->
+  <div class="jumbotron jumbotron-fluid d-flex align-items-center hero-image">
+    <div class="container text-center text-white ">
+      <h1 id="hero-title">All {{recipes.0.Categories.0.category}} Recipes</h1>
+      <p id="hero-subtitle">Nom, Nom, Nom</p>
+    </div>
+  </div>
+
+  <!--#################### END HERO / JUMBOTRON #################################-->
+  
+  <!--##################################################################################-->
 <!--#################### SHOW ALL RECIPES  #################################-->
 <!--##################################################################################-->
 
@@ -6,7 +18,7 @@
 <div class="container mb-4">
     <div class="row justify-content-center">
         <div class="col-12 text-center mb-4 mt-5">
-            <h1>{{category}} Recipes</h1>
+            <h1>All {{recipes.0.Categories.0.category}} Recipes</h1>
         </div>
     </div>
 
@@ -17,10 +29,10 @@
         {{#each recipes}}
         <div class="col-12 col-sm-6 col-md-3">
             <div class="card mb-2">
-                <img class="card-img-top" src="{{this.imgURL}}" alt="Recipe Image">
+                <img class="card-img-top" id="all-recipe-img" src="{{this.imgURL}}" alt="Recipe Image">
                 <div class="card-body">
                     <h5 class="card-title">{{this.name}}</h5>
-                    <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+                    <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary" id="view-recipe-button">View Recipe</a>
                 </div>
             </div>
         </div>

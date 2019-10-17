@@ -2,6 +2,7 @@ require("dotenv").config();
 var express = require("express");
 var exphbs = require("express-handlebars");
 var morgan = require("morgan");
+var edamam = require("./edamam");
 
 var session = require("express-session");
 // Requiring passport as we've configured it
@@ -49,6 +50,9 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
+  createCategories();
+  createEdamamChef();
+
   findOrCreateCategories(categories);
   app.listen(PORT, function() {
     console.log(
@@ -59,6 +63,80 @@ db.sequelize.sync(syncOptions).then(function() {
   });
 });
 
+function createCategories() {
+  db.Category.bulkCreate([
+    {
+      category: "Vegan"
+    },
+    {
+      category: "Vegetarian"
+    },
+    {
+      category: "Pescatarian"
+    },
+    {
+      category: "Paleo"
+    },
+    {
+      category: "Recipe-of-the-day"
+    }
+  ]).catch(function(err) {
+    console.log(err);
+    res.status(401).json(err);
+  });
+}
+
+//NEED TO FIGURE OUT THE FIND OR CREATE FOR CHEF!!
+function createEdamamChef() {
+  db.Chef.create({
+    name: "Edamam",
+    email: "chef@mail.com",
+    picture: "picture.jpg",
+    password: "password"
+  })
+    .then(function(dbChef) {
+      db.Recipe.findAll({
+        include: [db.Chef, db.Category],
+        where: { ChefId: dbChef.id }
+      }).then(function(dbRecipes) {
+        if (dbRecipes.length === 0) {
+          console.log("NO RECIPES");
+          edamam(function(totalRecipes) {
+            var counter = 0;
+            var categories = ["Vegan", "Vegetarian", "Pescatarian", "Paleo"];
+            addFromEdamam(categories, counter, totalRecipes, dbChef.id);
+          });
+        }
+      });
+    })
+    .catch(console.log);
+}
+
+function addFromEdamam(categories, counter, totalRecipes, chefId) {
+  if (counter < 4) {
+    db.Category.findOne({
+      where: { category: categories[counter] }
+    })
+      .then(function(dbCategory) {
+        console.log(
+          "FOUND! Category " + dbCategory.category + "Id " + dbCategory.id
+        );
+        var categoryId = dbCategory.id;
+        var recipesWithChefId = totalRecipes[counter].map(function(recipe) {
+          recipe.ChefId = chefId;
+          return recipe;
+        });
+        db.Recipe.bulkCreate(recipesWithChefId).then(function(dbRecipes) {
+          for (i = 0; i < dbRecipes.length; i++) {
+            dbRecipes[i].addCategory(categoryId);
+          }
+          counter++;
+          addFromEdamam(categories, counter, totalRecipes, chefId);
+        });
+      })
+      .catch(console.log);
+  }
+}
 // Creates category objects if they do not exist in the database
 function findOrCreateCategories(categories) {
   for (var i = 0; i < categories.length; i++) {

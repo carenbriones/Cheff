@@ -142,6 +142,24 @@ module.exports = function(app) {
       });
     });
   });
+  // --------------------------------------------
+  // --------------------------------------------
+
+  app.get("/profile/:chefId", function(req, res) {
+    db.Chef.findAll({
+      include: db.Recipe,
+      where: { id: req.params.chefId }
+    }).then(function(dbChef) {
+      var joinDate = moment(dbChef[0].createdAt).format("LL");
+      var chefRecipes = dbChef[0].Recipes;
+      console.log(dbChef[0].Recipes);
+      res.render("profile", {
+        chef: dbChef,
+        date: joinDate,
+        recipe: chefRecipes
+      });
+    });
+  });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
