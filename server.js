@@ -39,7 +39,7 @@ app.use(passport.session());
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-var syncOptions = { force: false };
+// Categories to find or create on start-up
 var categories = [
   "Vegan",
   "Vegetarian",
@@ -47,6 +47,8 @@ var categories = [
   "Paleo",
   "Recipe-of-the-day"
 ];
+
+var syncOptions = { force: false };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -68,29 +70,6 @@ db.sequelize.sync(syncOptions).then(function() {
     );
   });
 });
-
-// function createCategories() {
-//   db.Category.bulkCreate([
-//     {
-//       category: "Vegan"
-//     },
-//     {
-//       category: "Vegetarian"
-//     },
-//     {
-//       category: "Pescatarian"
-//     },
-//     {
-//       category: "Paleo"
-//     },
-//     {
-//       category: "Recipe-of-the-day"
-//     }
-//   ]).catch(function(err) {
-//     console.log(err);
-//     res.status(401).json(err);
-//   });
-// }
 
 //NEED TO FIGURE OUT THE FIND OR CREATE FOR CHEF!!
 function createEdamamChef() {
@@ -143,6 +122,7 @@ function addFromEdamam(categories, counter, totalRecipes, chefId) {
       .catch(console.log);
   }
 }
+
 // Creates category objects if they do not exist in the database
 function findOrCreateCategories(categories) {
   for (var i = 0; i < categories.length; i++) {

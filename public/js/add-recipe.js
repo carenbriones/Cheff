@@ -1,6 +1,7 @@
 console.log("Add Recipe JS Linked");
 
 $(document).ready(function() {
+  // Gets ID of chef that is currently logged in
   $.get("/api/user_data").then(function(data) {
     chefId = data.id;
   });
@@ -10,6 +11,7 @@ $(document).ready(function() {
   var stepID = 3;
   var categoryIds = [];
 
+  // Creates extra field to add another ingredient if needed
   $(document).on("click", "#add-ingredient", function() {
     if (ingredientID === 15) {
       alert("Only 15 Ingredients allowed");
@@ -25,6 +27,7 @@ $(document).ready(function() {
     }
   });
 
+  // Creates extra field to add another ingredient if needed
   $(document).on("click", "#add-step", function() {
     if (stepID === 15) {
       alert("Only 15 Steps allowed");
@@ -40,6 +43,7 @@ $(document).ready(function() {
     }
   });
 
+  // Submits recipe to be added
   $(document).on("click", "#add-recipe", function(event) {
     event.preventDefault();
     var recipeTitle = $("#recipeName")
@@ -48,12 +52,6 @@ $(document).ready(function() {
     var recipeDesc = $("#recipeDescription")
       .val()
       .trim();
-    // var categories = $(".form-check-input:checked")
-    //   .map(function() {
-    //     return this.value;
-    //   })
-    //   .get()
-    //   .join(", ");
 
     var ingredients = "";
     var instructions = "";
@@ -78,6 +76,8 @@ $(document).ready(function() {
       categories: JSON.stringify(categoryIds)
     };
 
+    // Gets all ingredients and joins them as a string
+    // with special separator flags in between
     function getIngredients() {
       var listOfIngredients = [];
       for (var i = 1; i <= ingredientID; i++) {
@@ -90,6 +90,8 @@ $(document).ready(function() {
       ingredients = listOfIngredients.join("&|");
     }
 
+    // Gets all instructions and joins them as a string
+    // with special separator flags in between
     function getInstructions() {
       var listOfInstructions = [];
       for (var i = 1; i <= stepID; i++) {
@@ -102,6 +104,8 @@ $(document).ready(function() {
       instructions = listOfInstructions.join("&|");
     }
 
+    // Gets all checked categories and adds them to an array
+    // by category ID
     function getCategories() {
       var categoryIds = [];
 
@@ -114,8 +118,10 @@ $(document).ready(function() {
       return categoryIds;
     }
 
+    // Posts recipe to database
     $.post("/api/recipes", newRecipe).then(function(response) {
       if (response) {
+        window.location.replace("/recipe/" + response.id);
         var successMsg = $(
           "<p class='text-success'> Article Added Succesfully!</p>"
         );
