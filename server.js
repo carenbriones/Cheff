@@ -40,7 +40,13 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 var syncOptions = { force: false };
-var categories = ["Vegan", "Vegetarian", "Pescatarian", "Paleo"];
+var categories = [
+  "Vegan",
+  "Vegetarian",
+  "Pescatarian",
+  "Paleo",
+  "Recipe-of-the-day"
+];
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -50,7 +56,7 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
-  createCategories();
+  // createCategories();
   createEdamamChef();
 
   findOrCreateCategories(categories);
@@ -63,35 +69,35 @@ db.sequelize.sync(syncOptions).then(function() {
   });
 });
 
-function createCategories() {
-  db.Category.bulkCreate([
-    {
-      category: "Vegan"
-    },
-    {
-      category: "Vegetarian"
-    },
-    {
-      category: "Pescatarian"
-    },
-    {
-      category: "Paleo"
-    },
-    {
-      category: "Recipe-of-the-day"
-    }
-  ]).catch(function(err) {
-    console.log(err);
-    res.status(401).json(err);
-  });
-}
+// function createCategories() {
+//   db.Category.bulkCreate([
+//     {
+//       category: "Vegan"
+//     },
+//     {
+//       category: "Vegetarian"
+//     },
+//     {
+//       category: "Pescatarian"
+//     },
+//     {
+//       category: "Paleo"
+//     },
+//     {
+//       category: "Recipe-of-the-day"
+//     }
+//   ]).catch(function(err) {
+//     console.log(err);
+//     res.status(401).json(err);
+//   });
+// }
 
 //NEED TO FIGURE OUT THE FIND OR CREATE FOR CHEF!!
 function createEdamamChef() {
   db.Chef.create({
     name: "Edamam",
     email: "chef@mail.com",
-    picture: "picture.jpg",
+    pictureURL: "picture.jpg",
     password: "password"
   })
     .then(function(dbChef) {
