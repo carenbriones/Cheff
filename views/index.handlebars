@@ -1,8 +1,18 @@
+<!--#################### HERO / JUMBOTRON #################################-->
+  <div class="jumbotron jumbotron-fluid d-flex align-items-center hero-image">
+    <div class="container text-center text-white ">
+      <h1 id="hero-title">WELCOME</h1>
+      <p id="hero-subtitle">Cheff is your recipe inspiration from other Chefs around the world!</p>
+    </div>
+  </div>
+
+  <!--#################### END HERO / JUMBOTRON #################################-->
+
 <!--#################### WELCOME MESSAGE #################################-->
 <div class="container mb-5">
   <div class="row justify-content-center">
     <div class="col-12 text-center mb-4">
-      <h1>Welcome to Cheff</h1>
+      <h1>Where Chefs Share</h1>
     </div>
 
     <div class="col-12 col-md-4 ">
@@ -10,13 +20,10 @@
         style="min-width:200px">
     </div>
     <div class="col-12 col-md-4 ">
-      <p id="chef-intro-text">Lörem ipsum dolor sit amet, dedeeshka duu. Leebur deroor iehroom, Börk Börk
+      <p id="chef-intro-text">Leebur deroor iehroom, Börk Börk
         Börk! Yöva gäta stahrt sömwaer. Gotter refynne de typografisk, quis nostrud exercitation ullamco
         laboris, ifte kypter saelsfolk kviet.Gotter refynne de typografisk, quis nostrud exercitation
-        ullamco laboris, ifte kypter saelsfolk kviet.
-
-        Ut enim ad minim veniam, letsi ifder svensk og latin makinen dehr graek. Yöva gäta stahrt sömwaer.
-        Ut enim ad minim veniam, letsi ifder svensk og latin makinen dehr graek.</p>
+        ullamco laboris, ifte kypter saelsfolk kviet.</p>
     </div>
   </div>
 
@@ -37,34 +44,22 @@
 
   <div class="row">
 
-    <!--------- EXAMPLE CARD ------------>
-    <div class="col-12 col-sm-6 col-md-3">
-      <div class="card mb-2">
-        <img class="card-img-top" src="https://via.placeholder.com/200" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Declious Recipe 1</h5>
-          <a href="#" class="btn btn-block btn-primary">View Recipe</a>
-        </div>
-      </div>
-    </div>
-
-    <!--------- END EXAMPLE CARD ------------>
 
     <!-- DYNAMIC CARD-->
-    {{#each All-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each recipes}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src="{{this.imgURL}}" alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary" id="view-recipe-button">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/" class="btn btn-block btn-outline-primary mt-2 mx-2" id="view-all-button">View All Recipes</a>
 
   </div>
 </div>
@@ -83,20 +78,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Vegan-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each vegan}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src="{{this.imgURL}}" alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary" id="view-recipe-button">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/1" class="btn btn-block btn-outline-primary mt-2 mx-2" id="view-all-button">View All Recipes</a>
 
   </div>
 </div>
@@ -113,20 +108,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Vegatarian-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each vegetarian}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src={{this.imgURL}} alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary" id="view-recipe-button">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/2" class="btn btn-block btn-outline-primary mt-2 mx-2" id="view-all-button">View All Recipes</a>
 
   </div>
 </div>
@@ -143,20 +138,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Pescatarian-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each pescatarian}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src={{this.imgURL}} alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary" id="view-recipe-button">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/3" class="btn btn-block btn-outline-primary mt-2 mx-2" id="view-all-button">View All Recipes</a>
 
   </div>
 </div>
@@ -173,20 +168,20 @@
   <div class="row">
 
     <!-- DYNAMIC CARD-->
-    {{#each Paleo-recipes}}
-     <div class="col-12 col-sm-6 col-md-3">
+    {{#each paleo}}
+     <div class="col-12 col-sm-6 col-lg-3">
       <div class="card mb-2">
-        <img class="card-img-top" src={{this.img_url}} alt="Recipe Image">
+        <img class="card-img-top" id="all-recipe-img" src={{this.imgURL}} alt="Recipe Image">
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <a href="/{{this.id}}" class="btn btn-block btn-primary">View Recipe</a>
+          <h5 class="card-title">{{this.name}}</h5>
+          <a href="/recipe/{{this.id}}" class="btn btn-block btn-primary" id="view-recipe-button">View Recipe</a>
         </div>
       </div>
     </div>
     {{/each}}
 
 
-    <a href="/all-recipes/{{categories.id}}" class="btn btn-block btn-outline-primary mt-2 mx-2">View All Recipes</a>
+    <a href="/all-recipes/4" class="btn btn-block btn-outline-primary mt-2 mx-2" id="view-all-button">View All Recipes</a>
 
   </div>
 </div>

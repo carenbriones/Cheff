@@ -39,7 +39,8 @@ app.use(passport.session());
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-var syncOptions = { force: true };
+var syncOptions = { force: false };
+var categories = ["Vegan", "Vegetarian", "Pescatarian", "Paleo"];
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -52,6 +53,7 @@ db.sequelize.sync(syncOptions).then(function() {
   createCategories();
   createEdamamChef();
 
+  findOrCreateCategories(categories);
   app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
@@ -135,4 +137,15 @@ function addFromEdamam(categories, counter, totalRecipes, chefId) {
       .catch(console.log);
   }
 }
+// Creates category objects if they do not exist in the database
+function findOrCreateCategories(categories) {
+  for (var i = 0; i < categories.length; i++) {
+    db.Category.findOrCreate({
+      where: {
+        category: categories[i]
+      }
+    });
+  }
+}
+
 module.exports = app;

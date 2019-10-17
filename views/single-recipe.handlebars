@@ -1,20 +1,45 @@
+
+ <!--#################### HERO / JUMBOTRON #################################-->
+  <div class="jumbotron jumbotron-fluid d-flex align-items-center recipe-header" style="background: url('{{recipe.imgURL}}')">
+    <div class="container text-center text-white ">
+      <h1 id="hero-recipe-title">{{recipe.name}}</h1>
+    </div>
+  </div>
+
+  <!--#################### END HERO / JUMBOTRON #################################-->
+
+
 <!--#################### RECIPE #################################-->
 
     <div class="container mb-4">
+
+    
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a id="breadcrumb" href="/">Home</a></li>
+    <li class="breadcrumb-item"><a id="breadcrumb" href="/all-recipes/">Recipes</a></li>
+    <li class="breadcrumb-item"><a id="breadcrumb" href="/profile/{{recipe.ChefId}}">Chef</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{recipe.name}}</li>
+  </ol>
+</nav>
+
+
+
         <div class="row">
 
             <div class="col-12 order-first text-left mt-3 mb-2">
-                <h1>{{title}}</h1>
+                <h1>{{recipe.name}}</h1>
                 <!-- CHEF NAME --->
-                <p>Chef: <a href="/{{chef_id}}" id="recipe-chef">{{name}}</a></p>
+                <p><i class="far fa-calendar-alt"></i><strong> First Cooked On:</strong> {{date}} </p>
                 <!-- RECIPE DESCRIPTION --->
-                <p id="recipe-description">{{description}} </p>
+                <p id="recipe-description"><i class="fas fa-cookie-bite"></i><strong> The Quick Taster: </strong>{{recipe.description}} </p>
                 <!-- IMAGE --->
-                <img src="{{img_rul}}" class="img-fluid"
+                <img src="{{recipe.imgURL}}" class="img-fluid"
                     id="recipe-image" alt="Recipe image">
             </div>
 
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-lg-3">
                 <div class="card mt-1">
                     <h5 class="card-header">Ingredients</h5>
                     <div class="card-body">
@@ -22,7 +47,7 @@
                             <!-- LIST INGREDIENTS --->
                             <ul id="ingredients-list">
                                 {{#each ingredients}}
-                                <li>{{ingredient}}</li>
+                                <li>{{this}}</li>
                                 {{/each}}
                             </ul>
                         </p>
@@ -30,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="col-12 order-last col-md-9">
+            <div class="col-12 order-last col-lg-9">
 
 
                 <div class="card mt-1">
@@ -40,7 +65,8 @@
                             <!-- LIST STEPS --->
                             <ol id="recipe-steps">
                                 {{#each steps}}
-                                <li>{{step}}</li>
+                                <li><h5>{{this}}</h5></li>
+                                <br>
                                 {{/each}}
                             </ol>
                         </p>

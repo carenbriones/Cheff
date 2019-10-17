@@ -163,7 +163,25 @@ module.exports = function(app) {
   //----------CREATE--------------//
   // Create new recipe
   app.post("/api/recipes", function(req, res) {
-    db.Recipe.create(req.body).then(function(dbRecipe) {
+    console.log(req.body.categories);
+    db.Recipe.create({
+      name: req.body.name,
+      description: req.body.description,
+      ingredients: req.body.ingredients,
+      steps: req.body.steps,
+      imgURL: req.body.imgURL,
+      ChefId: req.body.ChefId
+    }).then(function(dbRecipe) {
+      // Associate Categories to Recipe
+      for (var i = 0; i < req.body.categories.length; i++) {
+        db.Category.findOne({
+          where: {
+            id: req.body.categories[i]
+          }
+        }).then(function(dbCategory) {
+          dbRecipe.addCategory(dbCategory);
+        });
+      }
       res.json(dbRecipe);
     });
   });
@@ -174,7 +192,7 @@ module.exports = function(app) {
     res.json(req.user);
   });
 
-  //
+  // Creates a Chef
   app.post("/api/signup", function(req, res) {
     db.Chef.create({
       email: req.body.email,

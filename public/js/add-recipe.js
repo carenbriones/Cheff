@@ -8,6 +8,7 @@ $(document).ready(function() {
   var chefId;
   var ingredientID = 3;
   var stepID = 3;
+  var categoryIds = [];
 
   $(document).on("click", "#add-ingredient", function() {
     if (ingredientID === 15) {
@@ -39,19 +40,20 @@ $(document).ready(function() {
     }
   });
 
-  $(document).on("click", "#add-recipe", function() {
+  $(document).on("click", "#add-recipe", function(event) {
+    event.preventDefault();
     var recipeTitle = $("#recipeName")
       .val()
       .trim();
     var recipeDesc = $("#recipeDescription")
       .val()
       .trim();
-    var categories = $(".form-check-input:checked")
-      .map(function() {
-        return this.value;
-      })
-      .get()
-      .join(", ");
+    // var categories = $(".form-check-input:checked")
+    //   .map(function() {
+    //     return this.value;
+    //   })
+    //   .get()
+    //   .join(", ");
 
     var ingredients = "";
     var instructions = "";
@@ -62,16 +64,18 @@ $(document).ready(function() {
     getIngredients();
     getInstructions();
 
+    categoryIds = getCategories();
+
     var newRecipe = {
       // eslint-disable-next-line camelcase
-      chef_id: chefId,
-      title: recipeTitle,
+      ChefId: chefId,
+      name: recipeTitle,
       description: recipeDesc,
-      category: categories,
       ingredients: ingredients,
       steps: instructions,
       // eslint-disable-next-line camelcase
-      img_url: recipeImg
+      imgURL: recipeImg,
+      categories: JSON.stringify(categoryIds)
     };
 
     function getIngredients() {
@@ -83,7 +87,7 @@ $(document).ready(function() {
             .trim()
         );
       }
-      ingredients = listOfIngredients.join("|&|");
+      ingredients = listOfIngredients.join("&|");
     }
 
     function getInstructions() {
@@ -98,12 +102,19 @@ $(document).ready(function() {
       instructions = listOfInstructions.join("|&|");
     }
 
-    $.ajax({
-      type: "POST",
-      data: newRecipe,
-      url: "/api/recipes",
-      dataType: "JSON"
-    }).done(function(response) {
+    function getCategories() {
+      var categoryIds = [];
+
+      for (var i = 1; i <= 4; i++) {
+        if ($("#category-" + i + "-checkbox").is(":checked")) {
+          categoryIds.push(i);
+        }
+      }
+
+      return categoryIds;
+    }
+
+    $.post("/api/recipes", newRecipe).then(function(response) {
       if (response) {
         var successMsg = $(
           "<p class='text-success'> Article Added Succesfully!</p>"
