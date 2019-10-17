@@ -87,7 +87,7 @@ $(document).ready(function() {
             .trim()
         );
       }
-      ingredients = listOfIngredients.join("|&|");
+      ingredients = listOfIngredients.join("&|");
     }
 
     function getInstructions() {

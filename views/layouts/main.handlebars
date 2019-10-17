@@ -8,6 +8,7 @@
   <title>Cheff | A Recipe Repo For Chefs</title>
 
   <!------------ STYLE SHEETS --------------->
+  <link href="https://fonts.googleapis.com/css?family=Amaranth|Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
@@ -41,22 +42,24 @@
       <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
 
         <li class="nav-item dropdown">
-          <button type="button" class=" dropdown-toggle btn btn-outline-secondary btn-block btn-small" href="#" id="navbarDropdown"
+          <button type="button" class=" dropdown-toggle btn btn-outline-secondary btn-block btn-small my-1" href="#" id="navbarDropdown"
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Explore Recipes
           </button>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Vegan</a>
+            <a class="dropdown-item" href="/all-recipes/">All</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Vegatarian</a>
+            <a class="dropdown-item" href="/all-recipes/1">Vegan</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Pescatarian</a>
+            <a class="dropdown-item" href="/all-recipes/2">Vegatarian</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Paleo</a>
+            <a class="dropdown-item" href="/all-recipes/3">Pescatarian</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/all-recipes/4">Paleo</a>
           </div>
         </li>
         <li class="nav-item">
-          <a href="/login" id="login-button" role="button" class="btn btn-outline-primary btn-block mx-2">Login</a>
+          <a href="/login" id="home-login-button" role="button" class="btn btn-outline-secondary btn-block mx-2 my-1"><i class="far fa-user"></i> Login</a>
         </li>
       </ul>
     </div>
@@ -67,16 +70,7 @@
 
 
 
-  <!--#################### HERO / JUMBOTRON #################################-->
-  <div class="jumbotron jumbotron-fluid d-flex align-items-center">
-    <div class="container text-center text-white ">
-      <h1 id="hero-title">Fluid jumbotron</h1>
-      <p id="hero-subtitle">This is a modified jumbotron that occupies the entire horizontal space of its
-        parent.</p>
-    </div>
-  </div>
-
-  <!--#################### END HERO / JUMBOTRON #################################-->
+  
 
 
   {{{body}}}
