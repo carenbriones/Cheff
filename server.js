@@ -3,6 +3,7 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var morgan = require("morgan");
 var edamam = require("./edamam");
+//var recepiesOfTheDay = require("./recepiesoftheday");
 
 var session = require("express-session");
 // Requiring passport as we've configured it
@@ -56,10 +57,8 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
-  // createCategories();
-  createEdamamChef();
-
   findOrCreateCategories(categories);
+  createEdamamChef();
   app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
