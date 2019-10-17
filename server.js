@@ -3,6 +3,7 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var morgan = require("morgan");
 var edamam = require("./edamam");
+//var recepiesOfTheDay = require("./recepiesoftheday");
 
 var session = require("express-session");
 // Requiring passport as we've configured it
@@ -40,7 +41,13 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 var syncOptions = { force: false };
-var categories = ["Vegan", "Vegetarian", "Pescatarian", "Paleo"];
+var categories = [
+  "Vegan",
+  "Vegetarian",
+  "Pescatarian",
+  "Paleo",
+  "Recipe-of-the-day"
+];
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -50,10 +57,8 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
-  createCategories();
-  createEdamamChef();
-
   findOrCreateCategories(categories);
+  createEdamamChef();
   app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
@@ -63,28 +68,28 @@ db.sequelize.sync(syncOptions).then(function() {
   });
 });
 
-function createCategories() {
-  db.Category.bulkCreate([
-    {
-      category: "Vegan"
-    },
-    {
-      category: "Vegetarian"
-    },
-    {
-      category: "Pescatarian"
-    },
-    {
-      category: "Paleo"
-    },
-    {
-      category: "Recipe-of-the-day"
-    }
-  ]).catch(function(err) {
-    console.log(err);
-    res.status(401).json(err);
-  });
-}
+// function createCategories() {
+//   db.Category.bulkCreate([
+//     {
+//       category: "Vegan"
+//     },
+//     {
+//       category: "Vegetarian"
+//     },
+//     {
+//       category: "Pescatarian"
+//     },
+//     {
+//       category: "Paleo"
+//     },
+//     {
+//       category: "Recipe-of-the-day"
+//     }
+//   ]).catch(function(err) {
+//     console.log(err);
+//     res.status(401).json(err);
+//   });
+// }
 
 //NEED TO FIGURE OUT THE FIND OR CREATE FOR CHEF!!
 function createEdamamChef() {
