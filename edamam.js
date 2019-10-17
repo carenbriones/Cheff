@@ -20,7 +20,7 @@ function makeAxiosRequest(counter, query, totalRecipes, callback) {
     var edamamURL =
       "https://api.edamam.com/search?q=" +
       query[counter] +
-      "&app_id=2f3b3f36&app_key=81a5257dbddd57f03ee488440bdbff36&from=0&to=30&calories=591-722&health=alcohol-free";
+      "&app_id=2f3b3f36&app_key=81a5257dbddd57f03ee488440bdbff36&from=0&to=10&calories=591-722&health=alcohol-free";
     // Then run a request with axios to the OMDB API with the movie specified
     axios.get(edamamURL).then(function(response) {
       var allRecipes = [];
