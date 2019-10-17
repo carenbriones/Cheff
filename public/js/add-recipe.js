@@ -116,6 +116,7 @@ $(document).ready(function() {
 
     $.post("/api/recipes", newRecipe).then(function(response) {
       if (response) {
+        window.location.replace("/recipe/" + response.id);
         var successMsg = $(
           "<p class='text-success'> Article Added Succesfully!</p>"
         );
