@@ -1,9 +1,46 @@
+a{
+  cursor: pointer;
+}
+
 .navbar{
   border-bottom: 1px solid #d3d3d3 ;
 }
 
 .list-group-item {
   line-height: 2.5;
+}
+
+#home-login-button:hover{
+  color:white;
+  background: #e67d22;
+  border-color: #ce782c;
+}
+
+#view-recipe-button{
+  color: white;
+  background: #932c22;
+  border-color: #7e2017;
+}
+
+#view-recipe-button:hover{
+  color: white;
+  background: #d35045;
+  border-color: #d34a3d;
+}
+
+#view-all-button{
+  color:#932c22;
+  background: white;
+  border-color: #932c22;
+}
+#view-all-button:hover{
+  color:white;
+  background:#932c22;
+  border-color: #932c22;
+}
+
+#breadcrumb{
+  color:#e67d22;
 }
 
 .hero-image{
